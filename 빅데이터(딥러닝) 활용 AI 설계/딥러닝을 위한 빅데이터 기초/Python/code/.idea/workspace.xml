@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ac1ccce-1c5a-463a-b093-eaf69994ffd7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Code05-07 mission05-01.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code05-07 mission05-01.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Code05-07 mission05-02.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code05-07 mission05-02.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Code05-07 mission05-03.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code05-07 mission05-03.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/new_win.ini" beforeDir="false" afterPath="$PROJECT_DIR$/images/new_win.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Code06-01 객체지향1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Code06-02 컴퓨터비전 01.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Code06-02 컴퓨터비전 02.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,18 +14,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DockManager">
-    <window id="2">
+    <window id="3">
       <content type="file-editors">
         <state>
           <leaf>
             <file pinned="false" current-in-tab="true">
-              <entry file="file://$USER_HOME$/Downloads/Code05-08 미션3 메모장.py">
+              <entry file="file://$USER_HOME$/Downloads/Code 06 - 04 Mission.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="541">
-                    <caret line="91" selection-start-line="91" selection-end-line="91" />
-                    <folding>
-                      <element signature="e#0#21#0" expanded="true" />
-                    </folding>
+                  <state relative-caret-position="-5025">
+                    <caret line="29" column="16" lean-forward="true" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
                   </state>
                 </provider>
               </entry>
@@ -37,11 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Code05-07 mission05-01.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+            <state relative-caret-position="63">
+              <caret line="11" selection-start-line="11" selection-end-line="23" selection-end-column="75" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -52,8 +49,39 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Code05-07 mission05-02.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+            <state relative-caret-position="25">
+              <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Code06-02 컴퓨터비전 02.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="23">
+              <caret line="256" lean-forward="true" selection-start-line="256" selection-end-line="256" />
+              <folding>
+                <element signature="e#1139#1389#0" />
+                <element signature="e#1413#1501#0" />
+                <element signature="e#1528#2227#0" />
+                <element signature="e#2229#2275#0" />
+                <element signature="e#2390#2738#0" />
+                <element signature="e#2761#3298#0" />
+                <element signature="e#3886#4478#0" />
+                <element signature="e#4433#4867#0" />
+                <element signature="e#4894#5328#0" />
+                <element signature="e#5303#5677#0" />
+                <element signature="e#5311#5827#0" />
+                <element signature="e#5913#6500#0" />
+                <element signature="e#6542#6934#0" />
+                <element signature="e#5778#6294#0" />
+                <element signature="e#7507#7511#0" />
+                <element signature="e#6368#6905#0" />
+                <element signature="e#7115#7929#0" />
+                <element signature="e#9209#9695#0" />
+                <element signature="e#9629#9633#0" />
+                <element signature="e#10431#11407#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -93,7 +121,6 @@
         <option value="$PROJECT_DIR$/Code05-04 Event.py" />
         <option value="$PROJECT_DIR$/Code05-05 Menu.py" />
         <option value="$PROJECT_DIR$/Code05-05 파일목록.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/Code05-06 File처리1.py" />
         <option value="$PROJECT_DIR$/Code05-07 mission-01.py" />
         <option value="$PROJECT_DIR$/Code05-03 GIF Viewer.py" />
@@ -101,12 +128,16 @@
         <option value="$PROJECT_DIR$/Code05-07 mission05-03.py" />
         <option value="$USER_HOME$/Downloads/Code05-08 미션3 메모장.py" />
         <option value="$PROJECT_DIR$/Code05-07 mission05-01.py" />
+        <option value="$PROJECT_DIR$/Code06-01 객체지향1.py" />
+        <option value="$PROJECT_DIR$/Code06-02 컴퓨터비전 01.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/Code06-02 컴퓨터비전 02.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-38" />
-    <option name="width" value="1080" />
+    <option name="width" value="893" />
     <option name="height" value="1017" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -152,49 +183,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Code05-06 File처리1">
-    <configuration name="Code03-09 MySQL 데이터 조회" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="code" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\user\Desktop\TIL\빅데이터(딥러닝) 활용 AI 설계\딥러닝을 위한 빅데이터 기초\Python\code\Code03-10 MySQL 데이터 조회.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Code05-03 GIF Viewer" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="code" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code05-03 GIF Viewer.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.Code06-02 컴퓨터비전 02">
     <configuration name="Code05-06 File처리1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="code" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -237,7 +226,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Code05-07 mission05-02" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Code06-01 객체지향1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="code" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -249,7 +238,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code05-07 mission05-02.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code06-01 객체지향1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -258,7 +247,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Code05-07 mission05-03" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Code06-02 컴퓨터비전 01" type="PythonConfigurationType" factoryName="Python">
       <module name="code" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -270,7 +259,49 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code05-07 mission05-03.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code06-02 컴퓨터비전 01.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Code06-02 컴퓨터비전 02" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="code" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code06-02 컴퓨터비전 02.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="code" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -281,11 +312,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Code06-02 컴퓨터비전 02" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.Code06-01 객체지향1" />
         <item itemvalue="Python.Code05-06 File처리1" />
         <item itemvalue="Python.Code05-07 mission05-01" />
-        <item itemvalue="Python.Code05-07 mission05-03" />
-        <item itemvalue="Python.Code05-07 mission05-02" />
-        <item itemvalue="Python.Code05-03 GIF Viewer" />
       </list>
     </recent_temporary>
   </component>
@@ -303,15 +334,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-38" y="0" width="1080" height="1017" extended-state="0" />
+    <frame x="-38" y="0" width="893" height="1017" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24760076" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09239766" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.39071348" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2831257" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39952153" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -477,7 +508,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py" />
     <entry file="file://$PROJECT_DIR$/Code05-05 파일목록.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
@@ -492,13 +522,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Code05-06 File처리1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="10" column="22" selection-start-line="19" selection-end-line="19" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Code05-03 GIF Viewer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
@@ -507,13 +530,6 @@
             <element signature="e#64#85#0" expanded="true" />
             <marker date="1560245082884" expanded="true" signature="3279:3320" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Code05-07 mission05-02.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -534,22 +550,96 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Code05-06 File처리1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" column="27" lean-forward="true" selection-start-line="19" selection-end-line="19" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/Downloads/Code05-08 미션3 메모장.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="91" selection-start-line="91" selection-end-line="91" />
+        <state relative-caret-position="566">
+          <caret line="93" lean-forward="true" selection-start-line="65" selection-end-line="93" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Code06-01 객체지향1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Code05-07 mission05-01.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+        <state relative-caret-position="63">
+          <caret line="11" selection-start-line="11" selection-end-line="23" selection-end-column="75" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code06-02 컴퓨터비전 01.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-325">
+          <caret line="91" column="18" selection-start-line="91" selection-start-column="18" selection-end-line="91" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code05-07 mission05-02.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="30" column="34" lean-forward="true" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/Code 06 - 04 Mission.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5025">
+          <caret line="29" column="16" lean-forward="true" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code06-02 컴퓨터비전 02.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="256" lean-forward="true" selection-start-line="256" selection-end-line="256" />
+          <folding>
+            <element signature="e#1139#1389#0" />
+            <element signature="e#1413#1501#0" />
+            <element signature="e#1528#2227#0" />
+            <element signature="e#2229#2275#0" />
+            <element signature="e#2390#2738#0" />
+            <element signature="e#2761#3298#0" />
+            <element signature="e#3886#4478#0" />
+            <element signature="e#4433#4867#0" />
+            <element signature="e#4894#5328#0" />
+            <element signature="e#5303#5677#0" />
+            <element signature="e#5311#5827#0" />
+            <element signature="e#5913#6500#0" />
+            <element signature="e#6542#6934#0" />
+            <element signature="e#5778#6294#0" />
+            <element signature="e#7507#7511#0" />
+            <element signature="e#6368#6905#0" />
+            <element signature="e#7115#7929#0" />
+            <element signature="e#9209#9695#0" />
+            <element signature="e#9629#9633#0" />
+            <element signature="e#10431#11407#0" />
           </folding>
         </state>
       </provider>
