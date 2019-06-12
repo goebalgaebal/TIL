@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ac1ccce-1c5a-463a-b093-eaf69994ffd7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Code05-01 Sort.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Code05-02 GUI 02.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Code05-03 GIF Viewer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Code05-04 Event.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Code05-05 Menu.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Code05-05 파일목록.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Code05-06 File처리1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Code05-07 mission05-01.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Code05-07 mission05-02.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Code05-07 mission05-03.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code05-07 mission05-01.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code05-07 mission05-01.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code05-07 mission05-02.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code05-07 mission05-02.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code05-07 mission05-03.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code05-07 mission05-03.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/new_win.ini" beforeDir="false" afterPath="$PROJECT_DIR$/images/new_win.ini" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,47 +13,35 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="2">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$USER_HOME$/Downloads/Code05-08 미션3 메모장.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="541">
+                    <caret line="91" selection-start-line="91" selection-end-line="91" />
+                    <folding>
+                      <element signature="e#0#21#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Code05-06 File처리1.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="10" column="22" lean-forward="true" selection-start-line="19" selection-end-line="19" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Code05-03 GIF Viewer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="71" column="2" selection-start-line="71" selection-start-column="2" selection-end-line="71" selection-end-column="2" />
-              <folding>
-                <element signature="e#64#85#0" expanded="true" />
-                <marker date="1560245082884" expanded="true" signature="3279:3320" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Code05-07 mission05-03.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="68" column="4" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
-              <folding>
-                <element signature="e#14#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Code05-07 mission05-01.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="35" column="9" lean-forward="true" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
+            <state relative-caret-position="275">
+              <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -71,8 +52,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Code05-07 mission05-02.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="69" column="9" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
+            <state relative-caret-position="150">
+              <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -85,6 +66,11 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>selectStr</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
@@ -109,17 +95,18 @@
         <option value="$PROJECT_DIR$/Code05-05 파일목록.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/Code05-06 File처리1.py" />
-        <option value="$PROJECT_DIR$/Code05-07 mission05-02.py" />
         <option value="$PROJECT_DIR$/Code05-07 mission-01.py" />
-        <option value="$PROJECT_DIR$/Code05-07 mission05-01.py" />
-        <option value="$PROJECT_DIR$/Code05-07 mission05-03.py" />
         <option value="$PROJECT_DIR$/Code05-03 GIF Viewer.py" />
+        <option value="$PROJECT_DIR$/Code05-07 mission05-02.py" />
+        <option value="$PROJECT_DIR$/Code05-07 mission05-03.py" />
+        <option value="$USER_HOME$/Downloads/Code05-08 미션3 메모장.py" />
+        <option value="$PROJECT_DIR$/Code05-07 mission05-01.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-38" />
-    <option name="width" value="1284" />
+    <option name="width" value="1080" />
     <option name="height" value="1017" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -128,6 +115,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -139,7 +127,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -165,7 +152,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Code05-03 GIF Viewer">
+  <component name="RunManager" selected="Python.Code05-06 File처리1">
     <configuration name="Code03-09 MySQL 데이터 조회" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="code" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -294,11 +281,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Code05-03 GIF Viewer" />
+        <item itemvalue="Python.Code05-06 File처리1" />
+        <item itemvalue="Python.Code05-07 mission05-01" />
         <item itemvalue="Python.Code05-07 mission05-03" />
         <item itemvalue="Python.Code05-07 mission05-02" />
-        <item itemvalue="Python.Code05-07 mission05-01" />
-        <item itemvalue="Python.Code05-06 File처리1" />
+        <item itemvalue="Python.Code05-03 GIF Viewer" />
       </list>
     </recent_temporary>
   </component>
@@ -316,14 +303,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-38" y="0" width="1284" height="1017" extended-state="0" />
+    <frame x="-38" y="0" width="1080" height="1017" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14686999" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24760076" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.39071348" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.39071348" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39952153" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -358,13 +346,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Code05-07 mission05-02.py</url>
-          <line>73</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -496,16 +477,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="9" column="9" lean-forward="true" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py" />
     <entry file="file://$PROJECT_DIR$/Code05-05 파일목록.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
@@ -522,35 +494,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Code05-06 File처리1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="10" column="22" lean-forward="true" selection-start-line="19" selection-end-line="19" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Code05-07 mission05-01.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="35" column="9" lean-forward="true" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Code05-07 mission05-02.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="69" column="9" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Code05-07 mission05-03.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="68" column="4" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
-          <folding>
-            <element signature="e#14#35#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="250">
+          <caret line="10" column="22" selection-start-line="19" selection-end-line="19" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -561,6 +506,50 @@
           <folding>
             <element signature="e#64#85#0" expanded="true" />
             <marker date="1560245082884" expanded="true" signature="3279:3320" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code05-07 mission05-02.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/Code05-07 미션1 그림판.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="17" column="23" lean-forward="true" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code05-07 mission05-03.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+          <folding>
+            <element signature="e#14#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/Code05-08 미션3 메모장.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code05-07 mission05-01.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
           </folding>
         </state>
       </provider>

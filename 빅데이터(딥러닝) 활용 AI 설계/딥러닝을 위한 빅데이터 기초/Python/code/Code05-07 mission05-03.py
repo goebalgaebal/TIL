@@ -14,7 +14,11 @@ def mouseDrop(event) :
     global x1, y1, x2, y2, penWidth, penColor
     x2 = event.x
     y2 = event.y
-    canvas.create_line(x1, y1, x2, y2, width = penWidth, fill = penColor)
+    if curShape == LINE:
+        canvas.create_line(x1, y1, x2, y2, width=penWidth, fill=penColor)
+    else:
+        canvas.create_oval(x1, y1, x2, y2, width=penWidth, outline=penColor, fill='white')
+
 
 def getColor() :
     global penColor
@@ -38,12 +42,19 @@ def drawOval() :
     x1, y1, x2, y2 = getRandomPoint(), getRandomPoint(), getRandomPoint(), getRandomPoint()
     canvas.create_oval(x1, y1,x2, y2, fill = penColor, outline = penColor, width = penWidth)
 
+def chageShape(shape) :
+    global curShape
+    curShape = shape
+
 ## 전역 변수 선언 부분 ##
 window = None
 canvas = None
 x1, y1, x2, y2 = None, None, None, None
 penColor = "black"
 penWidth = 5
+
+LINE, CIRCLE = 0, 1
+curShape = LINE
 
 ## 메인 코드 부분 ##
 if __name__ == '__main__':
@@ -63,9 +74,9 @@ if __name__ == '__main__':
     fileMenu.add_separator()
     fileMenu.add_command(label = "선 두께 설정", command = getWidth)
 
-    figureMenu = Menu(mainMenu)
-    mainMenu.add_cascade(label = "도형", menu = figureMenu)
-    figureMenu.add_command(label = "선", command = drawLine)
-    figureMenu.add_command(label = "원", command = drawOval)
+    shapeMenu = Menu(mainMenu)
+    mainMenu.add_cascade(label = "도형", menu = shapeMenu)
+    shapeMenu.add_command(label = "선", command = lambda : chageShape(LINE))
+    shapeMenu.add_command(label = "원", command = lambda : chageShape(CIRCLE))
 
     window.mainloop()

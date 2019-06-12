@@ -4,7 +4,7 @@ from tkinter.filedialog import *
 import os
 
 ## 전역변수 선언부 ##
-photo = ""
+photo = None
 
 ## 함수 선언부 ##
 def loadImg(fileDir) :
