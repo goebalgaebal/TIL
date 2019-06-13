@@ -341,7 +341,7 @@ def rotateImage(val = "") :
     else :
         messagebox.showinfo("Error", "아직 구현 중")
 
-def moveImage(direction) :
+def moveImage() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
     ## [중요] 출력 영상 크기 결정 ##
     outH = inH
@@ -352,19 +352,15 @@ def moveImage(direction) :
     outImage = malloc(outH, outW)
 
     ## 컴퓨터 비전 알고리즘 ##
-    value = askinteger("이동", "값을 입력해주세요", minvalue=-255 , maxvalue = 255)
-    if direction == 1 : # 상하
-        for i in range(inH):
-            for k in range(inW):
-                if i + value > outW - 1 or i + value < 0:
-                    continue
-                outImage[i + value][k] = inImage[i][k]
-    else : # 좌우
-        for i in range(inH):
-            for k in range(inW):
-                if k + value > outH - 1 or k + value < 0:
-                    continue
-                outImage[i][k + value] = inImage[i][k]
+    valVertical = askinteger("상하이동", "값을 입력해주세요\n상(-)\t하(+)", minvalue=-255 , maxvalue = 255)
+    valhorizontal = askinteger("좌우이동", "값을 입력해주세요\n좌(-)\t우(+)", minvalue=-255 , maxvalue = 255)
+
+    for i in range(inH):
+        for k in range(inW):
+            if i + valVertical > outW - 1 or i + valVertical < 0 or k + valhorizontal > outH - 1 or k + valhorizontal < 0:
+                continue
+            outImage[i + valVertical][k + valhorizontal] = inImage[i][k]
+
     displayImage()
 
 def resizeImage(func) :
@@ -454,8 +450,7 @@ if __name__ == '__main__':
     comvisionMenu3.add_command(label="상하반전", command=upDownImage)
     comvisionMenu3.add_command(label="오른쪽 90도 회전", command=lambda : rotateImage("RIGHT"))
     comvisionMenu3.add_separator()
-    comvisionMenu3.add_command(label="상하이동", command=lambda : moveImage(1))
-    comvisionMenu3.add_command(label="좌우이동", command=lambda : moveImage(2))
+    comvisionMenu3.add_command(label="상하/좌우 이동", command = moveImage)
     comvisionMenu3.add_separator()
     comvisionMenu3.add_command(label="축소", command=lambda : resizeImage(1))
     comvisionMenu3.add_command(label="확대", command=lambda : resizeImage(2))
