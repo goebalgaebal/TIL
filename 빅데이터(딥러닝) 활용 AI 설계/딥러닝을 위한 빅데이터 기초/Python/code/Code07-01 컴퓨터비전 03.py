@@ -47,9 +47,18 @@ def openImage() :
     loadImage(filename)
     equalImage()
 
+import struct
 def saveImage() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    pass
+    saveFp = asksaveasfile(parent = window, mode = "wb", defaultextension = "*.raw", filetypes=(("RAW 파일", "*.raw;"), ("모든 파일", "*.*")))
+    if saveFp == "" or saveFp == None :
+        return
+
+    for i in range(outH) :
+        for k in range(outW) :
+            # 1byte 단위로 저장
+            saveFp.write(struct.pack("B", outImage[i][k]))
+    saveFp.close()
 
 def displayImage() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
@@ -63,10 +72,27 @@ def displayImage() :
     canvas.create_image((outH // 2, outW // 2), image = paper, state = "normal") # 붙일 위치 = 중앙점, 붙일 이미지
 
     ## 출력 영상을 화면에 한점씩 찍기 ##
+    # for i in range(outH) :
+    #     for k in range(outW) :
+    #         r = g = b = outImage[i][k]
+    #         paper.put("#%02x%02x%02x" % (r, g, b), (k, i))  # #RRGGBB
+
+    ## 영상 출력 성능 개선
+    rgbStr = "" # 전체 픽셀의 문자열을 저장
     for i in range(outH) :
+        tmpStr = ""
         for k in range(outW) :
             r = g = b = outImage[i][k]
-            paper.put("#%02x%02x%02x" % (r, g, b), (k, i))  # #RRGGBB
+            tmpStr += ' #%02x%02x%02x'  % (r, g, b) # [중요] 앞 한 칸 뛰기
+        rgbStr += '{' + tmpStr + '} '# [중요] 뒤 한 칸 뛰기
+    paper.put(rgbStr)
+
+    ## 더 성능을 개선시키려면 C++로 비디오 카드 접근 시도해보기
+
+    ## 마우스 이벤트
+    canvas.bind("<Button-1>", mouseClick)
+    canvas.bind("<ButtonRelease-1>", mouseDrop)
+
     canvas.pack(expand = 1, anchor = CENTER)
 
 ##############################################
@@ -275,81 +301,6 @@ def avgImage() :
                         "입력 영상 평균값 : {0}\n출력 영상 평균값 : {1}".format(inAvg, outAvg))
     print("입/출력 영상 평균값 구하기 완료")
 
-# 포스터라이징 알고리즘 (경계값 8개)
-# 화소에 있는 명암 값의 범위를 경계값으로 축소
-def posterizingImage() :
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    for i in range(inH):
-        for k in range(inW):
-            pixel = inImage[i][k]
-            if pixel > 200:
-                outImage[i][k] = 225
-            elif pixel > 150:
-                outImage[i][k] = 175
-            elif pixel > 100:
-                outImage[i][k] = 125
-            elif pixel > 50:
-                outImage[i][k] = 75
-            else:
-                outImage[i][k] = 25
-
-    displayImage()
-
-
-def gammaCorrection() :
-    ## 참고 : https://programmingfbf7290.tistory.com/entry/%EC%98%81%EC%83%81%EC%9D%98-%EA%B4%91%ED%95%99%EC%A0%81-%EB%B3%80%ED%99%982-%EA%B0%90%EB%A7%88-%EB%B3%B4%EC%A0%95
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    value = askfloat("감마보정", "값을 입력해주세요\n\n"
-                             "값이 1보다 크면 영상이 어두워지고"
-                             "\n1보다 작으면 이미지가 밝아집니다\n", minvalue = 0)
-    for i in range(inH):
-        for k in range(inW):
-            outImage[i][k] = int(pow(float(inImage[i][k])/255.0 , 1/value) * 255)
-            if outImage[i][k] > 255:  # overflow 처리
-                outImage[i][k] = 255
-    displayImage()
-    print("감마 보정 완료")
-
-def stretchingImage() :# ch05_히스토그램을 이용한 화소 점 처리.pdf 기본 명암 대비 스트레칭 참고
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    minValue, maxValue = 255, 0
-    for i in range(inH):
-        for k in range(inW):
-            if(minValue > inImage[i][k]) : minValue = inImage[i][k]
-            if(maxValue < inImage[i][k]) : maxValue = inImage[i][k]
-
-    for i in range(outH):
-        for k in range(outW):
-            outImage[i][k] = 0 if inImage[i][k] - minValue < 0 else int((inImage[i][k] - minValue) * 255 / (maxValue - minValue))
-    print("명암 대비 스트레칭 완료")
-
 def rotateImage(val = "") :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
     ## [중요] 출력 영상 크기 결정 ##
@@ -371,27 +322,27 @@ def rotateImage(val = "") :
     else :
         messagebox.showinfo("Error", "아직 구현 중")
 
-def moveImage() :
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    valVertical = askinteger("상하이동", "값을 입력해주세요\n상(-)\t하(+)", minvalue=-255 , maxvalue = 255)
-    valhorizontal = askinteger("좌우이동", "값을 입력해주세요\n좌(-)\t우(+)", minvalue=-255 , maxvalue = 255)
-
-    for i in range(inH):
-        for k in range(inW):
-            if i + valVertical > outW - 1 or i + valVertical < 0 or k + valhorizontal > outH - 1 or k + valhorizontal < 0:
-                continue
-            outImage[i + valVertical][k + valhorizontal] = inImage[i][k]
-
-    displayImage()
+# def moveImage() :
+#     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+#     ## [중요] 출력 영상 크기 결정 ##
+#     outH = inH
+#     outW = inW
+#
+#     ## 메모리 할당 ##
+#     outImage = []
+#     outImage = malloc(outH, outW)
+#
+#     ## 컴퓨터 비전 알고리즘 ##
+#     valVertical = askinteger("상하이동", "값을 입력해주세요\n상(-)\t하(+)", minvalue=-255 , maxvalue = 255)
+#     valhorizontal = askinteger("좌우이동", "값을 입력해주세요\n좌(-)\t우(+)", minvalue=-255 , maxvalue = 255)
+#
+#     for i in range(inH):
+#         for k in range(inW):
+#             if i + valVertical > outW - 1 or i + valVertical < 0 or k + valhorizontal > outH - 1 or k + valhorizontal < 0:
+#                 continue
+#             outImage[i + valVertical][k + valhorizontal] = inImage[i][k]
+#
+#     displayImage()
 
 def resizeImage(func) :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
@@ -425,6 +376,48 @@ def resizeImage(func) :
     displayImage()
     print("리사이즈 완료")
 
+# 화면이동 알고리즘
+def moveImage() :
+    global penYN
+    penYN = True
+
+    canvas.configure(cursor = "mouse")
+
+def mouseClick(event) :
+    global sx, sy, ex, ey, penTY
+    if penYN == False :
+        return
+    sx = event.x
+    sy = event.y
+
+def mouseDrop(event) :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+    global sx, sy, ex, ey, penTY
+    if penYN == False :
+        return
+    ex = event.x
+    ey = event.y
+
+    ## [중요] 출력 영상 크기 결정 ##
+    outH = inH
+    outW = inW
+
+    ## 메모리 할당 ##
+    outImage = []
+    outImage = malloc(outH, outW)
+
+    ## 컴퓨터 비전 알고리즘 ##
+    mx = sx - ex
+    my = sy - ey
+
+    for i in range(inH):
+        for k in range(inW):
+            if 0 <= i - my < outW and 0 <= k - mx < outH :
+                outImage[i - my][k - mx] = inImage[i][k]
+    penYN == False
+    displayImage()
+
+
 #####################
 ## 전역변수 선언부 ##
 #####################
@@ -432,6 +425,8 @@ inImage, outImage = [], []
 inH, inW, outH, outW = [0] * 4
 window, canvas, paper = [None] * 3
 filename = ""
+penYN = False
+sx, sy, ex, ey = [0] * 4
 
 #################
 ## 메인 코드부 ##
@@ -480,7 +475,7 @@ if __name__ == '__main__':
     comvisionMenu3.add_command(label="상하반전", command=upDownImage)
     comvisionMenu3.add_command(label="오른쪽 90도 회전", command=lambda : rotateImage("RIGHT"))
     comvisionMenu3.add_separator()
-    comvisionMenu3.add_command(label="상하/좌우 이동", command = moveImage)
+    comvisionMenu3.add_command(label="이동", command = moveImage)
     comvisionMenu3.add_separator()
     comvisionMenu3.add_command(label="축소", command=lambda : resizeImage(1))
     comvisionMenu3.add_command(label="확대", command=lambda : resizeImage(2))
