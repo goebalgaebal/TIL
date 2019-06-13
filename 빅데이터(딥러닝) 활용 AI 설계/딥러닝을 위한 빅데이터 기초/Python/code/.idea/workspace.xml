@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ac1ccce-1c5a-463a-b093-eaf69994ffd7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Code06-02 컴퓨터비전 02.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code06-02 컴퓨터비전 02.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,10 +36,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Code06-02 컴퓨터비전 02.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="357" column="24" lean-forward="true" selection-start-line="357" selection-start-column="24" selection-end-line="357" selection-end-column="24" />
+            <state relative-caret-position="414">
+              <caret line="365" lean-forward="true" selection-start-line="365" selection-end-line="365" />
               <folding>
                 <element signature="e#5913#6500#0" />
+                <element signature="e#6917#7472#0" />
+                <element signature="e#7572#8294#0" />
+                <element signature="e#8325#8896#0" />
+                <element signature="e#8929#9415#0" />
+                <element signature="e#9448#10163#0" />
                 <element signature="e#10253#11238#0" />
               </folding>
             </state>
@@ -107,7 +111,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-38" />
-    <option name="width" value="1181" />
+    <option name="width" value="907" />
     <option name="height" value="1017" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -304,10 +308,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-38" y="0" width="1181" height="1017" extended-state="0" />
+    <frame x="-38" y="0" width="907" height="1017" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11723535" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15420023" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -587,10 +591,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Code06-02 컴퓨터비전 02.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="357" column="24" lean-forward="true" selection-start-line="357" selection-start-column="24" selection-end-line="357" selection-end-column="24" />
+        <state relative-caret-position="414">
+          <caret line="365" lean-forward="true" selection-start-line="365" selection-end-line="365" />
           <folding>
             <element signature="e#5913#6500#0" />
+            <element signature="e#6917#7472#0" />
+            <element signature="e#7572#8294#0" />
+            <element signature="e#8325#8896#0" />
+            <element signature="e#8929#9415#0" />
+            <element signature="e#9448#10163#0" />
             <element signature="e#10253#11238#0" />
           </folding>
         </state>

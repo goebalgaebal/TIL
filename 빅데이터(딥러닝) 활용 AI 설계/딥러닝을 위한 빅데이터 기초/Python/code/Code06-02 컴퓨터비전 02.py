@@ -299,7 +299,7 @@ def gammaCorrection() :
     displayImage()
     print("감마 보정 완료")
 
-def stretchingImage() :
+def stretchingImage() :# ch05_히스토그램을 이용한 화소 점 처리.pdf 기본 명암 대비 스트레칭 참고
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
     ## [중요] 출력 영상 크기 결정 ##
     outH = inH
@@ -315,10 +315,11 @@ def stretchingImage() :
         for k in range(inW):
             if(minValue > inImage[i][k]) : minValue = inImage[i][k]
             if(maxValue < inImage[i][k]) : maxValue = inImage[i][k]
-    print("min", minValue)
-    print("max", maxValue)
-    messagebox.showinfo("Error", "아직 구현 중")
-    print("명암 대비 완료")
+
+    for i in range(outH):
+        for k in range(outW):
+            outImage[i][k] = int((inImage[i][k] - minValue) * 255 / (maxValue - minValue))
+    print("명암 대비 스트레칭 완료")
 
 def rotateImage(val = "") :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
