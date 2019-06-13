@@ -275,7 +275,7 @@ def avgImage() :
                         "입력 영상 평균값 : {0}\n출력 영상 평균값 : {1}".format(inAvg, outAvg))
     print("입/출력 영상 평균값 구하기 완료")
 
-# 포스터라이징 알고리즘
+# 포스터라이징 알고리즘 (경계값 8개)
 # 화소에 있는 명암 값의 범위를 경계값으로 축소
 def posterizingImage() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
@@ -291,27 +291,18 @@ def posterizingImage() :
     for i in range(inH):
         for k in range(inW):
             pixel = inImage[i][k]
-            if pixel > 226 :
-                outImage[i][k] = 255
-            elif pixel > 198 :
-                outImage[i][k] = 226
-            elif pixel > 170 :
-                outImage[i][k] = 198
-            elif pixel > 142 :
-                outImage[i][k] = 170
-            elif pixel > 113 :
-                outImage[i][k] = 142
-            elif pixel > 85 :
-                outImage[i][k] = 113
-            elif pixel > 57:
-                outImage[i][k] = 85
-            elif pixel > 28:
-                outImage[i][k] = 57
+            if pixel > 200:
+                outImage[i][k] = 225
+            elif pixel > 150:
+                outImage[i][k] = 175
+            elif pixel > 100:
+                outImage[i][k] = 125
+            elif pixel > 50:
+                outImage[i][k] = 75
             else:
-                outImage[i][k] = 28
+                outImage[i][k] = 25
 
     displayImage()
-    print("포스터라이징 완료")
 
 
 def gammaCorrection() :
