@@ -36,13 +36,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Code06-02 컴퓨터비전 02.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="365" lean-forward="true" selection-start-line="365" selection-end-line="365" />
+            <state relative-caret-position="427">
+              <caret line="325" column="62" lean-forward="true" selection-start-line="325" selection-start-column="62" selection-end-line="325" selection-end-column="62" />
               <folding>
+                <element signature="e#2386#2734#0" />
+                <element signature="e#2757#3388#0" />
+                <element signature="e#3416#3935#0" />
+                <element signature="e#3963#4396#0" />
+                <element signature="e#4423#4797#0" />
+                <element signature="e#4829#5285#0" />
+                <element signature="e#5307#5889#0" />
                 <element signature="e#5913#6500#0" />
+                <element signature="e#6538#6894#0" />
                 <element signature="e#6917#7472#0" />
                 <element signature="e#7572#8294#0" />
-                <element signature="e#8325#8896#0" />
                 <element signature="e#8929#9415#0" />
                 <element signature="e#9448#10163#0" />
                 <element signature="e#10253#11238#0" />
@@ -311,7 +318,7 @@
     <frame x="-38" y="0" width="907" height="1017" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15420023" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.093210585" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -591,13 +598,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Code06-02 컴퓨터비전 02.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="365" lean-forward="true" selection-start-line="365" selection-end-line="365" />
+        <state relative-caret-position="427">
+          <caret line="325" column="62" lean-forward="true" selection-start-line="325" selection-start-column="62" selection-end-line="325" selection-end-column="62" />
           <folding>
+            <element signature="e#2386#2734#0" />
+            <element signature="e#2757#3388#0" />
+            <element signature="e#3416#3935#0" />
+            <element signature="e#3963#4396#0" />
+            <element signature="e#4423#4797#0" />
+            <element signature="e#4829#5285#0" />
+            <element signature="e#5307#5889#0" />
             <element signature="e#5913#6500#0" />
+            <element signature="e#6538#6894#0" />
             <element signature="e#6917#7472#0" />
             <element signature="e#7572#8294#0" />
-            <element signature="e#8325#8896#0" />
             <element signature="e#8929#9415#0" />
             <element signature="e#9448#10163#0" />
             <element signature="e#10253#11238#0" />

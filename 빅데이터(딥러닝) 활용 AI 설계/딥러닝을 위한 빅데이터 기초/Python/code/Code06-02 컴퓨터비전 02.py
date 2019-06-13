@@ -275,8 +275,11 @@ def avgImage() :
                         "입력 영상 평균값 : {0}\n출력 영상 평균값 : {1}".format(inAvg, outAvg))
     print("입/출력 영상 평균값 구하기 완료")
 
+# 포스터라이징 알고리즘 (경계값 8개)
+# 화소에 있는 명암 값의 범위를 경계값으로 축소
 def posterizingImage() :
-    messagebox.showinfo("Error", "아직 구현 중")
+
+
 
 def gammaCorrection() :
     ## 참고 : https://programmingfbf7290.tistory.com/entry/%EC%98%81%EC%83%81%EC%9D%98-%EA%B4%91%ED%95%99%EC%A0%81-%EB%B3%80%ED%99%982-%EA%B0%90%EB%A7%88-%EB%B3%B4%EC%A0%95
@@ -290,7 +293,9 @@ def gammaCorrection() :
     outImage = malloc(outH, outW)
 
     ## 컴퓨터 비전 알고리즘 ##
-    value = askfloat("감마보정", "값을 입력해주세요", minvalue = 0)
+    value = askfloat("감마보정", "값을 입력해주세요\n\n"
+                             "값이 1보다 크면 영상이 어두워지고"
+                             "\n1보다 작으면 이미지가 밝아집니다\n", minvalue = 0)
     for i in range(inH):
         for k in range(inW):
             outImage[i][k] = int(pow(float(inImage[i][k])/255.0 , 1/value) * 255)
@@ -318,7 +323,7 @@ def stretchingImage() :# ch05_히스토그램을 이용한 화소 점 처리.pdf
 
     for i in range(outH):
         for k in range(outW):
-            outImage[i][k] = int((inImage[i][k] - minValue) * 255 / (maxValue - minValue))
+            outImage[i][k] = 0 if inImage[i][k] - minValue < 0 else int((inImage[i][k] - minValue) * 255 / (maxValue - minValue))
     print("명암 대비 스트레칭 완료")
 
 def rotateImage(val = "") :
