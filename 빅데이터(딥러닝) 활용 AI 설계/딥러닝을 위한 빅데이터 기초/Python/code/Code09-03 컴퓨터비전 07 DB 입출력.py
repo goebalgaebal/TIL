@@ -8,6 +8,8 @@ import os.path
 import pymysql
 import datetime
 import tempfile
+import random
+import struct # saveImage()
 
 #################
 ## 함수 선언부 ##
@@ -51,10 +53,11 @@ def openImage() :
     loadImage(filename)
     equalImage()
 
-import struct
+
 def saveImage() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    saveFp = asksaveasfile(parent = window, mode = "wb", defaultextension = "*.raw", filetypes=(("RAW 파일", "*.raw;"), ("모든 파일", "*.*")))
+    saveFp = asksaveasfile(parent = window, mode = "wb", defaultextension = "*.raw",
+                           filetypes=(("RAW 파일", "*.raw;"), ("모든 파일", "*.*")))
     if saveFp == "" or saveFp == None :
         return
 
@@ -75,19 +78,22 @@ def displayImage() :
         outW = inW
         outH = inH
         step = 1
+
+        displayW = btnFrame.winfo_width() if outW < btnFrame.winfo_width() else outW
     else :
         outW = VIEW_X
         outH = VIEW_Y
         step = inW / VIEW_X # 정수로 떨어지지 않는 경우 처리를 위해 실수로 계산
+
+        displayW = VIEW_X
+
     print("출력 크기", outH, outW)
-    window.geometry(str(int(outH * 1.2)) + 'x' + str(int(outW * 1.2)))
+    window.geometry(str(int(displayW * 1.2)) + 'x' + str(int(outW * 1.2)))
     canvas = Canvas(imageFrame, height=outH, width=outW)
     paper = PhotoImage(height=outH, width=outW)
     canvas.create_image((outH // 2, outW // 2), image=paper, state="normal")
 
-    # print(btnFrame.winfo_height(), btnFrame.winfo_width())
     # displayW = btnFrame.winfo_width() if outW < btnFrame.winfo_width() else outW
-    # print(str(displayW) + 'x' + str(btnFrame.winfo_height() + outH))
     # print(str(displayW) + 'x' + str(btnFrame.winfo_height() + outH))
     # ## 화면 크기 조절 ##
     # window.geometry(str(displayW) + 'x' + str(btnFrame.winfo_height() + outH))
@@ -747,258 +753,6 @@ def maskImage(mask, retouch = False) :
     displayImage()
     print("마스크 처리 완료")
 
-# 블러링 알고리즘
-def blurrImage() :
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    MSIZE = 5
-    mask = [[1 / (MSIZE * MSIZE) for i in range(MSIZE)] for k in range(MSIZE)]
-
-    ## 임시 입력 영상 메모리 확보
-    tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE -1, 127) # 중간값을 넘겨주는 것이 좋다
-    tmpOutImage = malloc(outH, outW)
-
-    ## 원 입력 → 임시 입력
-    for i in range(inH) :
-        for k in range(inW) :
-            tmpInImage[i + MSIZE // 2][k + MSIZE // 2] = inImage[i][k]
-
-    ## 회선 연산
-    for i in range(MSIZE // 2, inH + MSIZE // 2) :
-        for k in range(MSIZE // 2, inW + MSIZE // 2) :
-            # 각 점 처리
-            S = 0.0
-            for m in range(MSIZE) :
-                for n in range(MSIZE) :
-                    S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
-
-    ## 임시 출력 → 원 출력 영상
-    for i in range(outH):
-        for k in range(outW):
-            value = tmpOutImage[i][k]
-            if value > 255 :
-                value = 255
-            elif value < 0 :
-                value = 0
-            outImage[i][k] = int(value)
-
-    displayImage()
-    print("블러 처리 완료")
-
-# 샤프닝 알고리즘
-def sharpeningImage():
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    MSIZE = 3
-    mask = [[0, -1, 0],
-            [-1, 5, -1],
-            [0, -1, 0]]
-    print(mask)
-
-    ## 임시 입력 영상 메모리 확보
-    tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutImage = malloc(outH, outW)
-
-    ## 원 입력 → 임시 입력
-    for i in range(inH):
-        for k in range(inW):
-            tmpInImage[i + MSIZE // 2][k + MSIZE // 2] = inImage[i][k]
-
-    ## 회선 연산
-    for i in range(MSIZE // 2, inH + MSIZE // 2):
-        for k in range(MSIZE // 2, inW + MSIZE // 2):
-            # 각 점 처리
-            S = 0.0
-            for m in range(MSIZE):
-                for n in range(MSIZE):
-                    S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
-
-    ## 임시 출력 → 원 출력 영상
-    for i in range(outH):
-        for k in range(outW):
-            value = tmpOutImage[i][k]
-            if value > 255:
-                value = 255
-            elif value < 0:
-                value = 0
-            outImage[i][k] = int(value)
-
-    displayImage()
-    print("샤프닝 완료")
-
-# 가우시안 필터 알고리즘
-def gaussianImage() :
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    MSIZE = 3
-    mask = [[1/16, 1/8, 1/16],
-            [ 1/8, 1/4,  1/8],
-            [1/16, 1/8, 1/16]]
-
-    ## 임시 입력 영상 메모리 확보
-    tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutImage = malloc(outH, outW)
-
-    ## 원 입력 → 임시 입력
-    for i in range(inH):
-        for k in range(inW):
-            tmpInImage[i + MSIZE // 2][k + MSIZE // 2] = inImage[i][k]
-
-    ## 회선 연산
-    for i in range(MSIZE // 2, inH + MSIZE // 2):
-        for k in range(MSIZE // 2, inW + MSIZE // 2):
-            # 각 점 처리
-            S = 0.0
-            for m in range(MSIZE):
-                for n in range(MSIZE):
-                    S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
-
-    ## 임시 출력 → 원 출력 영상
-    for i in range(outH):
-        for k in range(outW):
-            value = tmpOutImage[i][k]
-            if value > 255:
-                value = 255
-            elif value < 0:
-                value = 0
-            outImage[i][k] = int(value)
-
-    displayImage()
-    print("가우시안 필터링 완료")
-
-# 고주파 필터 샤프닝 알고리즘
-def onHpfImage() :
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    MSIZE = 3
-    mask = [[-1/9, -1/9, -1/9],
-            [-1/9,  8/9, -1/9],
-            [-1/9, -1/9, -1/9]]
-    print(mask)
-
-    ## 임시 입력 영상 메모리 확보
-    tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutImage = malloc(outH, outW)
-
-    ## 원 입력 → 임시 입력
-    for i in range(inH):
-        for k in range(inW):
-            tmpInImage[i + MSIZE // 2][k + MSIZE // 2] = inImage[i][k]
-
-    ## 회선 연산
-    for i in range(MSIZE // 2, inH + MSIZE // 2):
-        for k in range(MSIZE // 2, inW + MSIZE // 2):
-            # 각 점 처리
-            S = 0.0
-            for m in range(MSIZE):
-                for n in range(MSIZE):
-                    S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
-
-    ## 127 더하기
-    # 마스크의 합 = 0인 마스크 → 가중치 0, 일반적으로 어두워짐, 마스크의 합 = 1인 마스크 존재
-    for i in range(outH):
-        for k in range(outW):
-            tmpOutImage[i][k] += 127
-
-    ## 임시 출력 → 원 출력 영상
-    for i in range(outH):
-        for k in range(outW):
-            value = tmpOutImage[i][k]
-            if value > 255:
-                value = 255
-            elif value < 0:
-                value = 0
-            outImage[i][k] = int(value)
-
-    displayImage()
-    print("고주파 필터 처리 완료")
-
-# 저주파 필터 샤프닝 알고리즘
-def onLpfImage() :
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    MSIZE = 3
-    mask = [[1 / 9, 1 / 9, 1 / 9],
-            [1 / 9, 1 / 9, 1 / 9],
-            [1 / 9, 1 / 9, 1 / 9]]
-    print(mask)
-
-    ## 임시 입력 영상 메모리 확보
-    tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutImage = malloc(outH, outW)
-
-    ## 원 입력 → 임시 입력
-    for i in range(inH):
-        for k in range(inW):
-            tmpInImage[i + MSIZE // 2][k + MSIZE // 2] = inImage[i][k]
-
-    ## 회선 연산
-    for i in range(MSIZE // 2, inH + MSIZE // 2):
-        for k in range(MSIZE // 2, inW + MSIZE // 2):
-            # 각 점 처리
-            S = 0.0
-            for m in range(MSIZE):
-                for n in range(MSIZE):
-                    S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
-
-    ## 임시 출력 → 원 출력 영상
-    for i in range(outH):
-        for k in range(outW):
-            value = tmpOutImage[i][k]
-            if value > 255:
-                value = 255
-            elif value < 0:
-                value = 0
-            outImage[i][k] = int(value)
-
-    displayImage()
-    print("저주파 필터 처리 완료")
-
 # 유사 연산자 에지 검출 알고리즘
 def homogenOpImage() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
@@ -1319,6 +1073,154 @@ def downloadData() :
     con.close()
     print("Download Complete")
 
+## 임시 경로에 outImage를 저장
+def saveTempImage() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+    import tempfile
+    saveFp = tempfile.gettempdir() + "/" + str(random.randint(10000, 99999)) + ".raw"
+    if saveFp == '' or saveFp == None :
+        return
+    print(saveFp)
+    saveFp = open(saveFp, mode='wb')
+    for i in range(outH) :
+        for k in range(outW) :
+            saveFp.write(struct.pack('B', outImage[i][k]))
+    saveFp.close()
+    return saveFp
+
+def findStat(fname) :
+    # 파일 열고 읽기
+    fsize = os.path.getsize(fname)
+    inH = inW = int(math.sqrt(fsize))
+
+    inImage = malloc(inH, inW)
+
+    # 파일 → 메모리
+    with open(fname, 'rb') as rFp:
+        for i in range(inH):
+            for k in range(inW):
+                inImage[i][k] = int(ord(rFp.read(1)))
+
+    sum = 0
+    for i in range(inH) :
+        for k in range(inW) :
+            sum += inImage[i][k]
+    avg = sum // (inH * inW)
+
+    maxVal = inImage[0][0]
+    minVal = inImage[0][0]
+    for i in range(inH):
+        for k in range(inW):
+            if inImage[i][k] < minVal:
+                minVal = inImage[i][k]
+            elif inImage[i][k] > maxVal:
+                maxVal = inImage[i][k]
+
+    return avg, maxVal, minVal
+
+def saveMysql() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+
+    con = pymysql.connect(host=IP_ADDR, user=USER_NAME, password=USER_PASS,
+                          db=DB_NAME, charset=CHAR_SET)
+    cur = con.cursor()
+
+    try:
+        sql = '''
+                CREATE TABLE rawImage_TBL (
+                raw_id INT AUTO_INCREMENT PRIMARY KEY,
+                raw_fname VARCHAR(30),
+                raw_extname CHAR(5),
+                raw_height SMALLINT, raw_width SMALLINT,
+                raw_avg TINYINT UNSIGNED, 
+                raw_max TINYINT UNSIGNED,
+                raw_min TINYINT UNSIGNED)
+            '''
+        cur.execute()
+    except:  # 이미 TABLE이 존재하는 경우
+        pass
+
+    ## outImage를 임시 폴더에 저장하고, 이걸 fullname으로 전달
+    fullname = saveTempImage()
+    fullname = fullname.name
+    with open(fullname, 'rb') as rfp:
+        binData = rfp.read()
+
+    fname, extname = os.path.basename(fullname).split(".")
+    fsize = os.path.getsize(fullname)
+    height = width = int(math.sqrt(fsize))
+
+    avgVal, maxVal, minVal = findStat(fullname)  # 평균, 최대, 최소
+
+    sql = "INSERT INTO rawImage_TBL(raw_id, raw_fname, raw_extname, raw_height, raw_width, "
+    sql += "raw_avg, raw_max, raw_min, raw_data) "
+    sql += "VALUES(NULL, '" + fname + "', '" + extname + "', " + str(height) + ", " + str(width) + ", "
+    sql += str(avgVal) + ", " + str(maxVal) + ", " + str(minVal) + " , %s )"
+
+    tupleData = (binData,)
+    cur.execute(sql, tupleData)
+
+    con.commit()
+    cur.close()
+    con.close()
+
+    os.remove(fullname)
+    print("Upload Complete")
+
+def loadMysql() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+
+    con = pymysql.connect(host=IP_ADDR, user=USER_NAME, password=USER_PASS,
+                          db=DB_NAME, charset=CHAR_SET)
+    cur = con.cursor()
+
+    sql = "SELECT raw_id, raw_fname, raw_extname, raw_height, raw_width "
+    sql += "FROM rawImage_TBL"
+    cur.execute(sql)
+
+    queryList = cur.fetchall()
+    rowList = [':'.join(map(str, row)) for row in queryList]
+
+    def selectRecord() :
+        global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+        selIndex = listbox.curselection()[0] # 선택한 것 중 첫번째
+        subWindow.destroy()
+        raw_id = queryList[selIndex][0]
+
+        sql = "SELECT raw_fname, raw_extname, raw_data FROM rawImage_TBL "
+        sql += "WHERE raw_id = " + str(raw_id)
+
+        cur.execute(sql)
+        fname, extname, binData = cur.fetchone()
+
+        fullpath = tempfile.gettempdir() + "/" + fname + "." + extname
+        with open(fullpath, "wb") as wfp:
+            wfp.write(binData)
+        print("경로", fullpath, "에 저장")
+
+        loadImage(fullpath)
+        equalImage()
+
+        con.commit()
+        cur.close()
+        con.close()
+
+
+    ### 서브 윈도우창에 목록 출력하기
+    subWindow = Toplevel(window)  # window 창의 아래 level에 있다
+    listbox = Listbox(subWindow)
+    btn = Button(subWindow, text = "선택", command = selectRecord)
+
+    for rowStr in rowList :
+        listbox.insert(END, rowStr)
+
+    listbox.pack(expand=1, anchor=CENTER)
+    btn.pack()
+    subWindow.mainloop()
+
+    cur.close()
+    con.close()
+
 #####################
 ## 전역변수 선언부 ##
 #####################
@@ -1333,7 +1235,7 @@ VIEW_X, VIEW_Y = 512, 512 # 화면에 보일 크기 (출력용)
 
 btnFrame, imageFrame = None, None
 
-IP_ADDR = "192.168.56.108"
+IP_ADDR = "192.168.56.109"
 USER_NAME = "root"
 USER_PASS = "1234"
 DB_NAME = "BigData_DB"
@@ -1347,6 +1249,23 @@ emboss = [[-1, 0, 0],
 BMSIZE = 5
 blurr = [[1 / (BMSIZE * BMSIZE) for i in range(BMSIZE)] for k in range(BMSIZE)]
 
+sharpening = [[0, -1, 0],
+              [-1, 5, -1],
+              [0, -1, 0]]
+
+gaussian = [[1 / 16, 1 / 8, 1 / 16],
+            [1 / 8, 1 / 4, 1 / 8],
+            [1 / 16, 1 / 8, 1 / 16]]
+
+# 고주파
+hpf = [[-1/9, -1/9, -1/9],
+       [-1/9,  8/9, -1/9],
+       [-1/9, -1/9, -1/9]]
+
+# 저주파
+lpf = [[1 / 9, 1 / 9, 1 / 9],
+       [1 / 9, 1 / 9, 1 / 9],
+       [1 / 9, 1 / 9, 1 / 9]]
 #################
 ## 메인 코드부 ##
 #################
@@ -1410,18 +1329,23 @@ if __name__ == '__main__':
 
     comvisionMenu4 = Menu(mainMenu)
     mainMenu.add_cascade(label="화소영역 처리", menu=comvisionMenu4)
-    comvisionMenu4.add_command(label="엠보싱", command = lambda : maskImage(emboss, True))
-    comvisionMenu4.add_command(label="블러링", command=blurrImage)
-    comvisionMenu4.add_command(label="샤프닝", command=sharpeningImage)
-    comvisionMenu4.add_command(label="가우시안 필터링", command=gaussianImage)
-    comvisionMenu4.add_command(label="고주파", command=onHpfImage)
-    comvisionMenu4.add_command(label="저주파", command=onLpfImage)
+    comvisionMenu4.add_command(label="엠보싱", command=lambda: maskImage(emboss, True))
+    comvisionMenu4.add_command(label="블러링", command=lambda: maskImage(blurr))
+    comvisionMenu4.add_command(label="샤프닝", command=lambda: maskImage(sharpening))
+    comvisionMenu4.add_command(label="가우시안 필터링", command=lambda: maskImage(gaussian))
+    comvisionMenu4.add_command(label="고주파", command=lambda: maskImage(hpf, True))
+    comvisionMenu4.add_command(label="저주파", command=lambda: maskImage(lpf))
     comvisionMenu4.add_separator()
     comvisionMenu4.add_command(label="단순 경계선 검출", command=homogenOpImage)
-    comvisionMenu4.add_command(label="로버츠", command=lambda : firstOrderDiff("roberts"))
+    comvisionMenu4.add_command(label="로버츠", command=lambda: firstOrderDiff("roberts"))
     comvisionMenu4.add_command(label="프리윗", command=lambda: firstOrderDiff("prewitt"))
     comvisionMenu4.add_command(label="소벨", command=lambda: firstOrderDiff("sobel"))
     comvisionMenu4.add_command(label="라플라시안", command=secondOrderDiff)
+
+    comVisionMenu5 = Menu(mainMenu)
+    mainMenu.add_cascade(label="데이터베이스 입출력", menu=comVisionMenu5)
+    comVisionMenu5.add_command(label="MySQL에서 불러오기", command=loadMysql)
+    comVisionMenu5.add_command(label="MySQL에 저장하기", command=saveMysql)
 
     btnFrame = tkinter.Frame(window)
     btnFrame.pack()
