@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ac1ccce-1c5a-463a-b093-eaf69994ffd7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Code08-01 컴퓨터비전 05.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Code08-02 MySQL에 RAW입력.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Code08-03 mission.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../특강/Github 특강 1/마크다운연습.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../특강/Github 특강 1/마크다운연습.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code09-03 컴퓨터비전 07 DB 입출력.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code09-03 컴퓨터비전 07 DB 입출력.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,78 +13,177 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Code07-02 컴퓨터비전 04.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Code09-03 컴퓨터비전 07 DB 입출력.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="275">
-              <caret line="803" column="31" selection-start-line="803" selection-start-column="31" selection-end-line="803" selection-end-column="31" />
+              <caret line="85" column="58" lean-forward="true" selection-start-line="85" selection-start-column="58" selection-end-line="85" selection-end-column="58" />
               <folding>
-                <element signature="e#244#433#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Code08-03 mission.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="897" lean-forward="true" selection-start-line="897" selection-end-line="897" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-                <element signature="e#244#433#0" />
-                <element signature="e#1158#1408#0" />
-                <element signature="e#1446#1881#0" />
-                <element signature="e#1955#3444#0" />
-                <element signature="e#3240#3588#0" />
-                <element signature="e#3611#4242#0" />
-                <element signature="e#4270#4789#0" />
-                <element signature="e#4817#5250#0" />
-                <element signature="e#5289#5663#0" />
-                <element signature="e#5706#6162#0" />
-                <element signature="e#6184#6766#0" />
-                <element signature="e#6811#7398#0" />
-                <element signature="e#7436#7792#0" />
-                <element signature="e#7815#8370#0" />
-                <element signature="e#8417#9355#0" />
-                <element signature="e#9382#10213#0" />
-                <element signature="e#10240#10858#0" />
-                <element signature="e#10906#11465#0" />
-                <element signature="e#11504#12105#0" />
-                <element signature="e#12153#13166#0" />
-                <element signature="e#13202#13271#0" />
-                <element signature="e#13301#13402#0" />
-                <element signature="e#13431#14010#0" />
-                <element signature="e#14075#14486#0" />
-                <element signature="e#14525#15207#0" />
-                <element signature="e#15254#16254#0" />
-                <element signature="e#16305#17086#0" />
-                <element signature="e#17126#18602#0" />
-                <element signature="e#18638#19947#0" />
-                <element signature="e#19987#21298#0" />
-                <element signature="e#21341#22661#0" />
-                <element signature="e#22704#24215#0" />
-                <element signature="e#24258#25607#0" />
-                <element signature="e#25656#26907#0" />
-                <element signature="e#26956#29038#0" />
-                <element signature="e#29087#30386#0" />
-                <element signature="e#30468#30685#0" />
-                <element signature="e#31363#32187#0" />
-                <element signature="e#30710#31617#0" />
-                <element signature="e#31644#32160#0" />
+                <element signature="e#8010#8597#0" />
+                <element signature="e#8635#8991#0" />
+                <element signature="e#9014#9569#0" />
+                <element signature="e#9616#10554#0" />
+                <element signature="e#10604#11499#0" />
+                <element signature="e#11526#12144#0" />
+                <element signature="e#12192#12751#0" />
+                <element signature="e#12790#13391#0" />
+                <element signature="e#13439#14452#0" />
+                <element signature="e#14488#14557#0" />
+                <element signature="e#14587#14688#0" />
+                <element signature="e#14717#15296#0" />
+                <element signature="e#15361#15772#0" />
+                <element signature="e#15798#16886#0" />
+                <element signature="e#16925#17607#0" />
+                <element signature="e#17654#18654#0" />
+                <element signature="e#18705#19486#0" />
+                <element signature="e#19547#20996#0" />
+                <element signature="e#21045#22296#0" />
+                <element signature="e#22345#24427#0" />
+                <element signature="e#24476#25775#0" />
+                <element signature="e#25810#27705#0" />
+                <element signature="e#27788#28032#0" />
+                <element signature="e#28059#28228#0" />
+                <element signature="e#28286#29132#0" />
+                <element signature="e#29157#29969#0" />
+                <element signature="e#29996#30512#0" />
+                <element signature="e#30563#31012#0" />
+                <element signature="e#31040#31752#0" />
+                <element signature="e#31776#33351#0" />
+                <element signature="e#33375#34929#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Code08-02 MySQL에 RAW입력.py">
+        <entry file="file://$PROJECT_DIR$/Code09-04 CSV 01.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="13" selection-start-line="13" selection-end-line="17" selection-end-column="17" />
+            <state relative-caret-position="475">
+              <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Code09-03 quiz-01.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="250">
+              <caret line="1302" lean-forward="true" selection-start-line="1302" selection-end-line="1302" />
               <folding>
-                <element signature="e#0#21#0" expanded="true" />
+                <element signature="e#326#515#0" />
+                <element signature="e#563#1202#0" />
+                <element signature="e#1250#1500#0" />
+                <element signature="e#2014#4236#0" />
+                <element signature="e#4399#4747#0" />
+                <element signature="e#4770#5401#0" />
+                <element signature="e#5429#5948#0" />
+                <element signature="e#5976#6409#0" />
+                <element signature="e#6448#6822#0" />
+                <element signature="e#6865#7321#0" />
+                <element signature="e#7343#7925#0" />
+                <element signature="e#7970#8557#0" />
+                <element signature="e#8595#8951#0" />
+                <element signature="e#8974#9529#0" />
+                <element signature="e#9576#10514#0" />
+                <element signature="e#10564#11459#0" />
+                <element signature="e#11486#12104#0" />
+                <element signature="e#12152#12711#0" />
+                <element signature="e#12750#13351#0" />
+                <element signature="e#13399#14412#0" />
+                <element signature="e#14448#14517#0" />
+                <element signature="e#14547#14648#0" />
+                <element signature="e#14677#15256#0" />
+                <element signature="e#15321#15732#0" />
+                <element signature="e#15758#16846#0" />
+                <element signature="e#16885#17567#0" />
+                <element signature="e#17614#18614#0" />
+                <element signature="e#18665#19446#0" />
+                <element signature="e#19507#20956#0" />
+                <element signature="e#21005#22256#0" />
+                <element signature="e#22305#24387#0" />
+                <element signature="e#24436#25735#0" />
+                <element signature="e#25770#27665#0" />
+                <element signature="e#28246#29092#0" />
+                <element signature="e#29117#29929#0" />
+                <element signature="e#29956#30472#0" />
+                <element signature="e#31033#31745#0" />
+                <element signature="e#31769#33344#0" />
+                <element signature="e#33368#34900#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Code09-01 컴퓨터비전 06.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="475">
+              <caret line="975" column="29" selection-start-line="975" selection-start-column="29" selection-end-line="975" selection-end-column="29" />
+              <folding>
+                <element signature="e#324#513#0" />
+                <element signature="e#561#1200#0" />
+                <element signature="e#15772#16860#0" />
+                <element signature="e#15961#16027#0" />
+                <element signature="e#16899#17581#0" />
+                <element signature="e#17628#18628#0" />
+                <element signature="e#18679#19460#0" />
+                <element signature="e#22319#24401#0" />
+                <element signature="e#24450#25749#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Code09-02 MySQL에 RAW입력(폴더).py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1324">
+              <caret line="60" column="19" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Code09-07 quiz-02.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="875">
+              <caret line="35" column="34" lean-forward="true" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Code09-05 CSV 02.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="451">
+              <caret line="26" column="11" selection-start-line="4" selection-end-line="29" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Code09-06 CSV 03 GUI.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="350">
+              <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+              <folding>
+                <element signature="e#10#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Code03-02 SQLite 데이터 조회.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="4" column="46" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -109,6 +205,28 @@
       <find>rotateImage</find>
       <find>MASK</find>
       <find>stretch</find>
+      <find>tmpOutUmage</find>
+      <find>display</find>
+      <find>histoIma</find>
+      <find>rotateImage2</find>
+      <find>rotate</find>
+      <find>fsize = os.path.getsize(fname) # 파일의 크기 (바이트)</find>
+      <find>tmp</find>
+      <find>tempfile</find>
+      <find>stre</find>
+      <find>histo</find>
+      <find>고주파</find>
+      <find>save</find>
+      <find>listbox</find>
+      <find>selectFile</find>
+      <find>fsize</find>
+      <find>select</find>
+      <find>filedialog</find>
+      <find>askopen</find>
+      <find>saveas</find>
+      <find>mor</find>
+      <find>모핑</find>
+      <find>thread</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -147,16 +265,29 @@
         <option value="$PROJECT_DIR$/작업중/Code07-02 컴퓨터비전 04.py" />
         <option value="$PROJECT_DIR$/Code07-01 컴퓨터비전 03.py" />
         <option value="$PROJECT_DIR$/Code07-02 컴퓨터비전 04.py" />
-        <option value="$PROJECT_DIR$/Code08-01 컴퓨터비전 05.py" />
         <option value="$PROJECT_DIR$/Code08-02 MySQL에 RAW입력.py" />
+        <option value="$PROJECT_DIR$/Code08-01 컴퓨터비전 05.py" />
         <option value="$PROJECT_DIR$/Code08-03 mission.py" />
+        <option value="$PROJECT_DIR$/Code09-01 컴퓨터비전 06.py" />
+        <option value="$PROJECT_DIR$/Code03-02 SQLite 데이터 조회.py" />
+        <option value="$PROJECT_DIR$/Code09-04 CSV 01.py" />
+        <option value="$PROJECT_DIR$/Code09-04 CSV 02.py" />
+        <option value="$PROJECT_DIR$/Code09-06 CSV 03 GUI.py" />
+        <option value="$PROJECT_DIR$/Code09-04 quiz-02.py" />
+        <option value="$PROJECT_DIR$/Code09-07 mission.py" />
+        <option value="$PROJECT_DIR$/Code09-08 mission.py" />
+        <option value="$PROJECT_DIR$/Code09-02 MySQL에 RAW입력(폴더).py" />
+        <option value="$PROJECT_DIR$/Code09-03 quiz-01.py" />
+        <option value="$PROJECT_DIR$/Code09-07 quiz-02.py" />
+        <option value="$PROJECT_DIR$/Code09-03 컴퓨터비전 07 DB 입출력.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
-    <option name="width" value="1166" />
-    <option name="height" value="1017" />
+    <option name="y" value="1" />
+    <option name="width" value="1363" />
+    <option name="height" value="1016" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -205,7 +336,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Code08-03 mission">
+  <component name="RunManager" selected="Python.Code09-03 컴퓨터비전 07 DB 입출력">
     <configuration name="Code06-02 컴퓨터비전 01" type="PythonConfigurationType" factoryName="Python">
       <module name="code" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -227,7 +358,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Code07-02 컴퓨터비전 04 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Code09-02 MySQL에 RAW입력(폴더)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="code" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -239,7 +370,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code07-02 컴퓨터비전 04.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code09-02 MySQL에 RAW입력(폴더).py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -248,28 +379,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Code07-02 컴퓨터비전 04 (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="code" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Downloads" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Downloads/Code07-02 컴퓨터비전 04.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Code08-01 컴퓨터비전 05" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Code09-03 컴퓨터비전 07 DB 입출력" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="code" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -281,7 +391,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code08-01 컴퓨터비전 05.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code09-03 컴퓨터비전 07 DB 입출력.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -290,7 +400,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Code08-02 MySQL에 RAW입력" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Code09-03 quiz-01" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="code" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -302,7 +412,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code08-02 MySQL에 RAW입력.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code09-03 quiz-01.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -311,7 +421,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Code08-03 mission" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Code09-07 quiz-02" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="code" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -323,7 +433,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code08-03 mission.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code09-07 quiz-02.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Code09-08 mission" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="code" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Code09-08 mission.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -334,11 +465,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Code08-03 mission" />
-        <item itemvalue="Python.Code08-02 MySQL에 RAW입력" />
-        <item itemvalue="Python.Code08-01 컴퓨터비전 05" />
-        <item itemvalue="Python.Code07-02 컴퓨터비전 04 (1)" />
-        <item itemvalue="Python.Code07-02 컴퓨터비전 04 (2)" />
+        <item itemvalue="Python.Code09-03 컴퓨터비전 07 DB 입출력" />
+        <item itemvalue="Python.Code09-07 quiz-02" />
+        <item itemvalue="Python.Code09-03 quiz-01" />
+        <item itemvalue="Python.Code09-02 MySQL에 RAW입력(폴더)" />
+        <item itemvalue="Python.Code09-08 mission" />
       </list>
     </recent_temporary>
   </component>
@@ -365,15 +496,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1166" height="1017" extended-state="0" />
+    <frame x="-7" y="1" width="1363" height="1016" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1072695" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15018868" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37485844" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.3295583" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37528345" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.398641" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -464,34 +595,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="23" column="20" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Code03-01 SQLite 데이터 입력.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Code03-02 SQLite 데이터 조회.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" lean-forward="true" selection-start-line="6" selection-end-line="10" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Code03-09 MySQL 데이터 입력.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Code03-10 MySQL 데이터 조회.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="15" column="12" lean-forward="true" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -706,19 +809,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Code07-02 컴퓨터비전 04.py">
+    <entry file="file://$PROJECT_DIR$/Code08-01 컴퓨터비전 05.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="803" column="31" selection-start-line="803" selection-start-column="31" selection-end-line="803" selection-end-column="31" />
+        <state relative-caret-position="355">
+          <caret line="1228" column="35" selection-start-line="1228" selection-start-column="35" selection-end-line="1228" selection-end-column="35" />
           <folding>
+            <element signature="e#0#21#0" expanded="true" />
             <element signature="e#244#433#0" />
+            <element signature="e#481#1110#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Code08-02 MySQL에 RAW입력.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
+        <state relative-caret-position="25">
           <caret line="13" selection-start-line="13" selection-end-line="17" selection-end-column="17" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
@@ -726,100 +831,215 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Code08-01 컴퓨터비전 05.py">
+    <entry file="file://$PROJECT_DIR$/Code03-09 MySQL 데이터 입력.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2280">
-          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+        <state relative-caret-position="200">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code03-10 MySQL 데이터 조회.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="15" column="12" lean-forward="true" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code07-02 컴퓨터비전 04.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="803" column="31" selection-start-line="803" selection-start-column="31" selection-end-line="803" selection-end-column="31" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
             <element signature="e#244#433#0" />
-            <element signature="e#481#1110#0" />
-            <element signature="e#1158#1408#0" />
-            <element signature="e#1446#1881#0" />
-            <element signature="e#1908#3077#0" />
-            <element signature="e#3240#3588#0" />
-            <element signature="e#3611#4242#0" />
-            <element signature="e#4270#4789#0" />
-            <element signature="e#4817#5250#0" />
-            <element signature="e#5289#5663#0" />
-            <element signature="e#5706#6162#0" />
-            <element signature="e#6184#6766#0" />
-            <element signature="e#6811#7398#0" />
-            <element signature="e#7436#7792#0" />
-            <element signature="e#7815#8370#0" />
-            <element signature="e#8417#9355#0" />
-            <element signature="e#9382#10213#0" />
-            <element signature="e#10240#10858#0" />
-            <element signature="e#10906#11465#0" />
-            <element signature="e#11504#12105#0" />
-            <element signature="e#12153#13166#0" />
-            <element signature="e#13202#13271#0" />
-            <element signature="e#13301#13402#0" />
-            <element signature="e#13431#14010#0" />
-            <element signature="e#14075#14486#0" />
-            <element signature="e#14525#15207#0" />
-            <element signature="e#15254#16254#0" />
-            <element signature="e#16305#17086#0" />
-            <element signature="e#17126#18602#0" />
-            <element signature="e#18638#19947#0" />
-            <element signature="e#19987#21298#0" />
-            <element signature="e#21341#22661#0" />
-            <element signature="e#22704#24215#0" />
-            <element signature="e#24258#25607#0" />
-            <element signature="e#25656#26907#0" />
-            <element signature="e#26956#29038#0" />
-            <element signature="e#29087#30386#0" />
-            <element signature="e#30510#31770#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Code08-03 mission.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="897" lean-forward="true" selection-start-line="897" selection-end-line="897" />
+        <state relative-caret-position="-4269">
+          <caret line="845" column="5" selection-start-line="845" selection-start-column="2" selection-end-line="845" selection-end-column="5" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#244#433#0" />
-            <element signature="e#1158#1408#0" />
-            <element signature="e#1446#1881#0" />
-            <element signature="e#1955#3444#0" />
-            <element signature="e#3240#3588#0" />
-            <element signature="e#3611#4242#0" />
-            <element signature="e#4270#4789#0" />
-            <element signature="e#4817#5250#0" />
-            <element signature="e#5289#5663#0" />
-            <element signature="e#5706#6162#0" />
-            <element signature="e#6184#6766#0" />
-            <element signature="e#6811#7398#0" />
-            <element signature="e#7436#7792#0" />
-            <element signature="e#7815#8370#0" />
-            <element signature="e#8417#9355#0" />
-            <element signature="e#9382#10213#0" />
-            <element signature="e#10240#10858#0" />
-            <element signature="e#10906#11465#0" />
-            <element signature="e#11504#12105#0" />
-            <element signature="e#12153#13166#0" />
-            <element signature="e#13202#13271#0" />
-            <element signature="e#13301#13402#0" />
-            <element signature="e#13431#14010#0" />
-            <element signature="e#14075#14486#0" />
-            <element signature="e#14525#15207#0" />
-            <element signature="e#15254#16254#0" />
-            <element signature="e#16305#17086#0" />
-            <element signature="e#17126#18602#0" />
-            <element signature="e#18638#19947#0" />
-            <element signature="e#19987#21298#0" />
-            <element signature="e#21341#22661#0" />
-            <element signature="e#22704#24215#0" />
-            <element signature="e#24258#25607#0" />
-            <element signature="e#25656#26907#0" />
-            <element signature="e#26956#29038#0" />
-            <element signature="e#29087#30386#0" />
-            <element signature="e#30468#30685#0" />
-            <element signature="e#31363#32187#0" />
-            <element signature="e#30710#31617#0" />
-            <element signature="e#31644#32160#0" />
+            <element signature="e#324#513#0" />
+            <element signature="e#561#1190#0" />
+            <element signature="e#1238#1488#0" />
+            <element signature="e#1988#3483#0" />
+            <element signature="e#3646#3994#0" />
+            <element signature="e#4017#4648#0" />
+            <element signature="e#4676#5195#0" />
+            <element signature="e#29493#30792#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code03-01 SQLite 데이터 입력.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" column="33" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code09-08 mission.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="783">
+          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code03-02 SQLite 데이터 조회.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="4" column="46" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code09-03 quiz-01.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="1302" lean-forward="true" selection-start-line="1302" selection-end-line="1302" />
+          <folding>
+            <element signature="e#326#515#0" />
+            <element signature="e#563#1202#0" />
+            <element signature="e#1250#1500#0" />
+            <element signature="e#2014#4236#0" />
+            <element signature="e#4399#4747#0" />
+            <element signature="e#4770#5401#0" />
+            <element signature="e#5429#5948#0" />
+            <element signature="e#5976#6409#0" />
+            <element signature="e#6448#6822#0" />
+            <element signature="e#6865#7321#0" />
+            <element signature="e#7343#7925#0" />
+            <element signature="e#7970#8557#0" />
+            <element signature="e#8595#8951#0" />
+            <element signature="e#8974#9529#0" />
+            <element signature="e#9576#10514#0" />
+            <element signature="e#10564#11459#0" />
+            <element signature="e#11486#12104#0" />
+            <element signature="e#12152#12711#0" />
+            <element signature="e#12750#13351#0" />
+            <element signature="e#13399#14412#0" />
+            <element signature="e#14448#14517#0" />
+            <element signature="e#14547#14648#0" />
+            <element signature="e#14677#15256#0" />
+            <element signature="e#15321#15732#0" />
+            <element signature="e#15758#16846#0" />
+            <element signature="e#16885#17567#0" />
+            <element signature="e#17614#18614#0" />
+            <element signature="e#18665#19446#0" />
+            <element signature="e#19507#20956#0" />
+            <element signature="e#21005#22256#0" />
+            <element signature="e#22305#24387#0" />
+            <element signature="e#24436#25735#0" />
+            <element signature="e#25770#27665#0" />
+            <element signature="e#28246#29092#0" />
+            <element signature="e#29117#29929#0" />
+            <element signature="e#29956#30472#0" />
+            <element signature="e#31033#31745#0" />
+            <element signature="e#31769#33344#0" />
+            <element signature="e#33368#34900#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code09-01 컴퓨터비전 06.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="975" column="29" selection-start-line="975" selection-start-column="29" selection-end-line="975" selection-end-column="29" />
+          <folding>
+            <element signature="e#324#513#0" />
+            <element signature="e#561#1200#0" />
+            <element signature="e#15772#16860#0" />
+            <element signature="e#15961#16027#0" />
+            <element signature="e#16899#17581#0" />
+            <element signature="e#17628#18628#0" />
+            <element signature="e#18679#19460#0" />
+            <element signature="e#22319#24401#0" />
+            <element signature="e#24450#25749#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code09-04 CSV 01.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code09-05 CSV 02.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="26" column="11" selection-start-line="4" selection-end-line="29" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code09-06 CSV 03 GUI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+          <folding>
+            <element signature="e#10#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code09-07 quiz-02.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="875">
+          <caret line="35" column="34" lean-forward="true" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code09-02 MySQL에 RAW입력(폴더).py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1324">
+          <caret line="60" column="19" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Code09-03 컴퓨터비전 07 DB 입출력.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="85" column="58" lean-forward="true" selection-start-line="85" selection-start-column="58" selection-end-line="85" selection-end-column="58" />
+          <folding>
+            <element signature="e#8010#8597#0" />
+            <element signature="e#8635#8991#0" />
+            <element signature="e#9014#9569#0" />
+            <element signature="e#9616#10554#0" />
+            <element signature="e#10604#11499#0" />
+            <element signature="e#11526#12144#0" />
+            <element signature="e#12192#12751#0" />
+            <element signature="e#12790#13391#0" />
+            <element signature="e#13439#14452#0" />
+            <element signature="e#14488#14557#0" />
+            <element signature="e#14587#14688#0" />
+            <element signature="e#14717#15296#0" />
+            <element signature="e#15361#15772#0" />
+            <element signature="e#15798#16886#0" />
+            <element signature="e#16925#17607#0" />
+            <element signature="e#17654#18654#0" />
+            <element signature="e#18705#19486#0" />
+            <element signature="e#19547#20996#0" />
+            <element signature="e#21045#22296#0" />
+            <element signature="e#22345#24427#0" />
+            <element signature="e#24476#25775#0" />
+            <element signature="e#25810#27705#0" />
+            <element signature="e#27788#28032#0" />
+            <element signature="e#28059#28228#0" />
+            <element signature="e#28286#29132#0" />
+            <element signature="e#29157#29969#0" />
+            <element signature="e#29996#30512#0" />
+            <element signature="e#30563#31012#0" />
+            <element signature="e#31040#31752#0" />
+            <element signature="e#31776#33351#0" />
+            <element signature="e#33375#34929#0" />
           </folding>
         </state>
       </provider>
