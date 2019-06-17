@@ -1,6 +1,4 @@
-from tkinter import *
 from tkinter.simpledialog import *
-from tkinter.filedialog import *
 from tkinter.filedialog import *
 import math
 import os
@@ -10,6 +8,7 @@ import datetime
 import tempfile
 import random
 import struct # saveImage()
+import sqlite3
 
 #################
 ## 함수 선언부 ##
@@ -1080,7 +1079,8 @@ def saveTempImage() :
     saveFp = tempfile.gettempdir() + "/" + str(random.randint(10000, 99999)) + ".raw"
     if saveFp == '' or saveFp == None :
         return
-    print(saveFp)
+    print("saveTempImage save file name", saveFp)
+
     saveFp = open(saveFp, mode='wb')
     for i in range(outH) :
         for k in range(outW) :
@@ -1201,10 +1201,8 @@ def loadMysql() :
         loadImage(fullpath)
         equalImage()
 
-        con.commit()
         cur.close()
         con.close()
-
 
     ### 서브 윈도우창에 목록 출력하기
     subWindow = Toplevel(window)  # window 창의 아래 level에 있다
@@ -1220,6 +1218,93 @@ def loadMysql() :
 
     cur.close()
     con.close()
+
+####################
+## SQLite DB 연동 ##
+####################
+def loadSqlite() :
+    conn = sqlite3.connect("bigData_DB")  # 1. DB 연결
+    cur = conn.cursor()
+    sql = "SELECT raw_id, raw_fname, raw_extname, raw_height, raw_width "
+    sql += "FROM rawImage_TBL"
+    cur.execute(sql)
+
+    sql = "SELECT raw_id, raw_fname, raw_extname, raw_height, raw_width "
+    sql += "FROM rawImage_TBL"
+    cur.execute(sql)
+
+    queryList = cur.fetchall()
+    rowList = [':'.join(map(str, row)) for row in queryList]
+
+    def selectRecord():
+        global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+        selIndex = listbox.curselection()[0]  # 선택한 것 중 첫번째
+        subWindow.destroy()
+        raw_id = queryList[selIndex][0]
+
+        sql = "SELECT raw_fname, raw_extname, raw_data FROM rawImage_TBL "
+        sql += "WHERE raw_id = " + str(raw_id)
+
+        cur.execute(sql)
+        fname, extname, binData = cur.fetchone()
+
+        fullpath = tempfile.gettempdir() + "/" + fname + "." + extname
+        with open(fullpath, "wb") as wfp:
+            wfp.write(binData)
+        print("경로", fullpath, "에 저장")
+
+        loadImage(fullpath)
+        equalImage()
+
+    ### 서브 윈도우창에 목록 출력하기
+    subWindow = Toplevel(window)  # window 창의 아래 level에 있다
+    listbox = Listbox(subWindow)
+    btn = Button(subWindow, text="선택", command=selectRecord)
+
+    for rowStr in rowList:
+        listbox.insert(END, rowStr)
+
+    listbox.pack(expand=1, anchor=CENTER)
+    btn.pack()
+    subWindow.mainloop()
+
+    cur.close()
+    conn.close()
+    print("Load data from SQLite OK")
+
+def saveSqlite() :
+    conn = sqlite3.connect("bigData_DB")
+    cur = conn.cursor()
+    sql = "CREATE TABLE IF NOT EXISTS rawImage_TBL ( "
+    sql += "raw_id INTEGER PRIMARY KEY AUTOINCREMENT, raw_fname VARCHAR(30), raw_extname CHAR(5), "
+    sql += "raw_height SMALLINT, raw_width SMALLINT, "
+    sql += "raw_avg TINYINT UNSIGNED, raw_max TINYINT UNSIGNED, raw_min TINYINT UNSIGNED, "
+    sql += "raw_data LONGBLOB);"
+    cur.execute(sql)
+
+    fullname = saveTempImage()
+    fullname = fullname.name
+    with open(fullname, 'rb') as rfp:
+        binData = rfp.read()
+
+    fname, extname = os.path.basename(fullname).split(".")
+    fsize = os.path.getsize(fullname)
+    height = width = int(math.sqrt(fsize))
+
+    avgVal, maxVal, minVal = findStat(fullname)  # 평균, 최대, 최소
+
+    sql = "INSERT INTO rawImage_TBL(raw_fname, raw_extname, raw_height, raw_width, "
+    sql += "raw_avg, raw_max, raw_min, raw_data) "
+    sql += "VALUES('" + fname + "', '" + extname + "', " + str(height) + ", " + str(width) + ", "
+    sql += str(avgVal) + ", " + str(maxVal) + ", " + str(minVal) + ", ? )"
+
+    tupleData = (binData,)
+    cur.execute(sql, tupleData)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+    print("SQLite SAVE OK")
 
 #####################
 ## 전역변수 선언부 ##
@@ -1346,6 +1431,9 @@ if __name__ == '__main__':
     mainMenu.add_cascade(label="데이터베이스 입출력", menu=comVisionMenu5)
     comVisionMenu5.add_command(label="MySQL에서 불러오기", command=loadMysql)
     comVisionMenu5.add_command(label="MySQL에 저장하기", command=saveMysql)
+    comVisionMenu5.add_separator()
+    comVisionMenu5.add_command(label = "SQLite에서 불러오기", command=loadSqlite)
+    comVisionMenu5.add_command(label = "SQLite에 저장하기", command=saveSqlite)
 
     btnFrame = tkinter.Frame(window)
     btnFrame.pack()
