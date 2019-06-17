@@ -1137,20 +1137,40 @@ def morphImage() :
     outImage = malloc(outH, outW)
 
     ## 컴퓨터 비전 알고리즘 ##
-    w1 = askinteger("원영상 가중치", "가중치 값(%)을 입력해주세요", minvalue=0, maxvalue=100)
-    w2 = 1 - (w1 / 100)
-    w1 = 1 - w2
-    for i in range(inH):
-        for k in range(inW):
-            newValue = int(inImage[i][k] * w1 + inImage2[i][k] * w2)
-            if newValue > 255:  # overflow 처리
-                newValue = 255
-            if newValue < 0:  # underflow 처리
-                newValue = 0
-            outImage[i][k] = newValue
-    displayImage()
-    print("모핑 완료")
+    # w1 = askinteger("원영상 가중치", "가중치 값(%)을 입력해주세요", minvalue=0, maxvalue=100)
+    # w2 = 1 - (w1 / 100)
+    # w1 = 1 - w2
+    # for i in range(inH):
+    #     for k in range(inW):
+    #         newValue = int(inImage[i][k] * w1 + inImage2[i][k] * w2)
+    #         if newValue > 255:  # overflow 처리
+    #             newValue = 255
+    #         if newValue < 0:  # underflow 처리
+    #             newValue = 0
+    #         outImage[i][k] = newValue
+    # displayImage()
 
+    import threading
+    import time
+    def morpFunc():
+        w1 = 1;
+        w2 = 0
+        for _ in range(20):
+            for i in range(inH):
+                for k in range(inW):
+                    newValue = int(inImage[i][k] * w1 + inImage2[i][k] * w2)
+                    if newValue > 255:
+                        newValue = 255
+                    elif newValue < 0:
+                        newValue = 0
+                    outImage[i][k] = newValue
+            displayImage()
+            w1 -= 0.05;
+            w2 += 0.05
+            time.sleep(0.5)
+
+    threading.Thread(target=morpFunc).start()
+    print("모핑 완료")
 
 #####################
 ## 전역변수 선언부 ##
