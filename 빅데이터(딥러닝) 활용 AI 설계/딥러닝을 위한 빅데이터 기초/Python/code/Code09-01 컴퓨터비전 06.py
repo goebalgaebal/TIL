@@ -39,8 +39,8 @@ def loadImage(fname) :
         for i in range(inH) :
             for k in range(inW) :
                 inImage[i][k] = int(ord(rFp.read(1))) # 읽어온 파일에서 1byte씩 읽어서(아스키코드) 정수형 데이터로 대입
-    print(inH, inW)
-    print(inImage[1][1]) # ord() : 문자의 아스키 코드값을 리턴하는 함수
+    print("입력 크기", inH, inW)
+    #print(inImage[1][1]) # ord() : 문자의 아스키 코드값을 리턴하는 함수
 
 # 파일을 선택해서 메모리로 로딩하는 함수
 def openImage() :
@@ -66,18 +66,34 @@ def saveImage() :
 
 def displayImage() :
     global imageFrame, btnFrame, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+    global VIEW_X, VIEW_Y
     if canvas != None : # 이전에 실행한 적이 있는 경우(이전 이미지가 있는 경우)
         canvas.destroy()
 
-    print(btnFrame.winfo_height(), btnFrame.winfo_width())
-    displayW = btnFrame.winfo_width() if outW < btnFrame.winfo_width() else outW
-    print(str(displayW) + 'x' + str(btnFrame.winfo_height() + outH))
-    print(str(displayW) + 'x' + str(btnFrame.winfo_height() + outH))
-    ## 화면 크기 조절 ##
-    window.geometry(str(displayW) + 'x' + str(btnFrame.winfo_height() + outH))
-    canvas = Canvas(imageFrame, height = outH, width = outW)
-    paper = PhotoImage(height = outH, width = outW) # 크기가 정해진 빈 종이
-    canvas.create_image((outH // 2, outW // 2), image = paper, state = "normal") # 붙일 위치 = 중앙점, 붙일 이미지
+    ## 고정된 화면 크기
+    if inH <= VIEW_Y or inW <= VIEW_X :
+        outW = inW
+        outH = inH
+        step = 1
+    else :
+        outW = VIEW_X
+        outH = VIEW_Y
+        step = inW / VIEW_X # 정수로 떨어지지 않는 경우 처리를 위해 실수로 계산
+    print("Display Func", "출력 크기", outH, outW)
+    window.geometry(str(int(outH * 1.2)) + 'x' + str(int(outW * 1.2)))
+    canvas = Canvas(imageFrame, height=outH, width=outW)
+    paper = PhotoImage(height=outH, width=outW)
+    canvas.create_image((outH // 2, outW // 2), image=paper, state="normal")
+
+    # print(btnFrame.winfo_height(), btnFrame.winfo_width())
+    # displayW = btnFrame.winfo_width() if outW < btnFrame.winfo_width() else outW
+    # print(str(displayW) + 'x' + str(btnFrame.winfo_height() + outH))
+    # print(str(displayW) + 'x' + str(btnFrame.winfo_height() + outH))
+    # ## 화면 크기 조절 ##
+    # window.geometry(str(displayW) + 'x' + str(btnFrame.winfo_height() + outH))
+    # canvas = Canvas(imageFrame, height = outH, width = outW)
+    # paper = PhotoImage(height = outH, width = outW) # 크기가 정해진 빈 종이
+    # canvas.create_image((outH // 2, outW // 2), image = paper, state = "normal") # 붙일 위치 = 중앙점, 붙일 이미지
 
     ## 출력 영상을 화면에 한점씩 찍기 ##
     # for i in range(outH) :
@@ -86,14 +102,17 @@ def displayImage() :
     #         paper.put("#%02x%02x%02x" % (r, g, b), (k, i))  # #RRGGBB
 
     ## 영상 출력 성능 개선
+    import numpy
     rgbStr = "" # 전체 픽셀의 문자열을 저장
-    for i in range(outH) :
+    for i in numpy.arange(0, inH, step) : # numpy의 arange는 실수 step 사용 가능
         tmpStr = ""
-        for k in range(outW) :
+        for k in numpy.arange(0, inW, step) :
+            i = int(i); k = int(k)
             r = g = b = outImage[i][k]
             tmpStr += ' #%02x%02x%02x'  % (r, g, b) # [중요] 앞 한 칸 뛰기
         rgbStr += '{' + tmpStr + '} '# [중요] 뒤 한 칸 뛰기
     paper.put(rgbStr)
+
 
     ## 더 성능을 개선시키려면 C++로 비디오 카드 접근 시도해보기
 
@@ -102,6 +121,8 @@ def displayImage() :
     canvas.bind("<ButtonRelease-1>", mouseDrop)
 
     canvas.pack(expand = 1, anchor = CENTER)
+
+    status.configure(text = "이미지 정보 : " + str(outW) + 'x' + str(outH))
 
 ##############################################
 ## 컴퓨터 비전(영상처리) 알고리즘 함수 모음 ##
@@ -545,6 +566,37 @@ def histoImage() :
     plt.plot(outCountList)
     plt.show()
 
+def histoImage2() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+    outCountList = [0] * 256
+    normalCountList = [0] * 256
+
+    # 빈도수 계산
+    for i in range(inH) :
+        for k in range(inW) :
+            outCountList[inImage[i][k]] += 1
+
+    maxVal = max(outCountList)
+    minVal = min(outCountList)
+    High = 256
+    # 정규화 = (카운트값 - 최소값) * High / (최대값 - 최소값)
+    for i in range(len(outCountList)) :
+        normalCountList[i] = (outCountList[i] - minVal) * High / (maxVal - minVal)
+
+    ## 서브 윈도우창 생성 후 출력
+    subWindow = Toplevel(window) # window 창의 아래 level에 있다
+    subWindow.geometry("256x256")
+    subCanvas = Canvas(subWindow, width = 256, height = 256)
+    subPaper = PhotoImage(width = 256, height = 256)
+    subCanvas.create_image((256 // 2, 256//2), image = subPaper, state = "normal")
+
+    for i in range(len(normalCountList)) :
+        for k in range(int(normalCountList[i])) :
+            data = 0
+            subPaper.put("#%02x%02x%02x" % (data, data, data), (i, 255 - k)) # 회전 고려
+    subCanvas.pack(expand = 1, anchor = CENTER)
+    subWindow.mainloop()
+
 # 스트레칭 알고리즘
 def stretchImage() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
@@ -642,8 +694,8 @@ def histoEqualizedImage() :
 
     displayImage()
 
-# 엠보싱 처리 알고리즘
-def embossImage() :
+# 마스크를 활용한 알고리즘
+def maskImage(mask, retouch = False) :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
     ## [중요] 출력 영상 크기 결정 ##
     outH = inH
@@ -654,113 +706,7 @@ def embossImage() :
     outImage = malloc(outH, outW)
 
     ## 컴퓨터 비전 알고리즘 ##
-    MSIZE = 3
-    mask = [[-1, 0, 0],
-            [ 0, 0, 0],
-            [ 0, 0, 1]]
-
-    ## 임시 입력 영상 메모리 확보
-    tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE -1, 127) # 중간값을 넘겨주는 것이 좋다
-    tmpOutImage = malloc(outH, outW)
-
-    ## 원 입력 → 임시 입력
-    for i in range(inH) :
-        for k in range(inW) :
-            tmpInImage[i + MSIZE // 2][k + MSIZE // 2] = inImage[i][k]
-
-    ## 회선 연산
-    for i in range(MSIZE // 2, inH + MSIZE // 2) :
-        for k in range(MSIZE // 2, inW + MSIZE // 2) :
-            # 각 점 처리
-            S = 0.0
-            for m in range(MSIZE) :
-                for n in range(MSIZE) :
-                    S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
-
-    ## 127 더하기
-    # 마스크의 합 = 0인 마스크 → 가중치 0, 일반적으로 어두워짐, 마스크의 합 = 1인 마스크 존재
-    for i in range(outH) :
-        for k in range(outW) :
-            tmpOutImage[i][k] += 127
-
-    ## 임시 출력 → 원 출력 영상
-    for i in range(outH):
-        for k in range(outW):
-            value = tmpOutImage[i][k]
-            if value > 255 :
-                value = 255
-            elif value < 0 :
-                value = 0
-            outImage[i][k] = int(value)
-
-    displayImage()
-    print("엠보싱 처리 완료")
-
-# 블러링 알고리즘
-def blurrImage() :
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    MSIZE = 5
-    mask = [[1 / (MSIZE * MSIZE) for i in range(MSIZE)] for k in range(MSIZE)]
-
-    ## 임시 입력 영상 메모리 확보
-    tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE -1, 127) # 중간값을 넘겨주는 것이 좋다
-    tmpOutImage = malloc(outH, outW)
-
-    ## 원 입력 → 임시 입력
-    for i in range(inH) :
-        for k in range(inW) :
-            tmpInImage[i + MSIZE // 2][k + MSIZE // 2] = inImage[i][k]
-
-    ## 회선 연산
-    for i in range(MSIZE // 2, inH + MSIZE // 2) :
-        for k in range(MSIZE // 2, inW + MSIZE // 2) :
-            # 각 점 처리
-            S = 0.0
-            for m in range(MSIZE) :
-                for n in range(MSIZE) :
-                    S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
-
-    ## 임시 출력 → 원 출력 영상
-    for i in range(outH):
-        for k in range(outW):
-            value = tmpOutImage[i][k]
-            if value > 255 :
-                value = 255
-            elif value < 0 :
-                value = 0
-            outImage[i][k] = int(value)
-
-    displayImage()
-    print("블러 처리 완료")
-
-# 샤프닝 알고리즘
-def sharpeningImage():
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    MSIZE = 3
-    mask = [[0, -1, 0],
-            [-1, 5, -1],
-            [0, -1, 0]]
-    print(mask)
+    MSIZE = len(mask)
 
     ## 임시 입력 영상 메모리 확보
     tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
@@ -781,54 +727,12 @@ def sharpeningImage():
                     S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
             tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
 
-    ## 임시 출력 → 원 출력 영상
-    for i in range(outH):
-        for k in range(outW):
-            value = tmpOutImage[i][k]
-            if value > 255:
-                value = 255
-            elif value < 0:
-                value = 0
-            outImage[i][k] = int(value)
-
-    displayImage()
-    print("샤프닝 완료")
-
-# 가우시안 필터 알고리즘
-def gaussianImage() :
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    MSIZE = 3
-    mask = [[1/16, 1/8, 1/16],
-            [ 1/8, 1/4,  1/8],
-            [1/16, 1/8, 1/16]]
-
-    ## 임시 입력 영상 메모리 확보
-    tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutImage = malloc(outH, outW)
-
-    ## 원 입력 → 임시 입력
-    for i in range(inH):
-        for k in range(inW):
-            tmpInImage[i + MSIZE // 2][k + MSIZE // 2] = inImage[i][k]
-
-    ## 회선 연산
-    for i in range(MSIZE // 2, inH + MSIZE // 2):
-        for k in range(MSIZE // 2, inW + MSIZE // 2):
-            # 각 점 처리
-            S = 0.0
-            for m in range(MSIZE):
-                for n in range(MSIZE):
-                    S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
+    if retouch == True :
+        ## 127 더하기
+        # 마스크의 합 = 0인 마스크 → 가중치 0, 일반적으로 어두워짐, 마스크의 합 = 1인 마스크 존재
+        for i in range(outH):
+            for k in range(outW):
+                tmpOutImage[i][k] += 127
 
     ## 임시 출력 → 원 출력 영상
     for i in range(outH):
@@ -841,113 +745,7 @@ def gaussianImage() :
             outImage[i][k] = int(value)
 
     displayImage()
-    print("가우시안 필터링 완료")
-
-# 고주파 필터 샤프닝 알고리즘
-def onHpfImage() :
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    MSIZE = 3
-    mask = [[-1/9, -1/9, -1/9],
-            [-1/9,  8/9, -1/9],
-            [-1/9, -1/9, -1/9]]
-    print(mask)
-
-    ## 임시 입력 영상 메모리 확보
-    tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutImage = malloc(outH, outW)
-
-    ## 원 입력 → 임시 입력
-    for i in range(inH):
-        for k in range(inW):
-            tmpInImage[i + MSIZE // 2][k + MSIZE // 2] = inImage[i][k]
-
-    ## 회선 연산
-    for i in range(MSIZE // 2, inH + MSIZE // 2):
-        for k in range(MSIZE // 2, inW + MSIZE // 2):
-            # 각 점 처리
-            S = 0.0
-            for m in range(MSIZE):
-                for n in range(MSIZE):
-                    S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
-
-    ## 127 더하기
-    # 마스크의 합 = 0인 마스크 → 가중치 0, 일반적으로 어두워짐, 마스크의 합 = 1인 마스크 존재
-    for i in range(outH):
-        for k in range(outW):
-            tmpOutImage[i][k] += 127
-
-    ## 임시 출력 → 원 출력 영상
-    for i in range(outH):
-        for k in range(outW):
-            value = tmpOutImage[i][k]
-            if value > 255:
-                value = 255
-            elif value < 0:
-                value = 0
-            outImage[i][k] = int(value)
-
-    displayImage()
-    print("고주파 필터 처리 완료")
-
-# 저주파 필터 샤프닝 알고리즘
-def onLpfImage() :
-    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH
-    outW = inW
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    MSIZE = 3
-    mask = [[1 / 9, 1 / 9, 1 / 9],
-            [1 / 9, 1 / 9, 1 / 9],
-            [1 / 9, 1 / 9, 1 / 9]]
-    print(mask)
-
-    ## 임시 입력 영상 메모리 확보
-    tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutImage = malloc(outH, outW)
-
-    ## 원 입력 → 임시 입력
-    for i in range(inH):
-        for k in range(inW):
-            tmpInImage[i + MSIZE // 2][k + MSIZE // 2] = inImage[i][k]
-
-    ## 회선 연산
-    for i in range(MSIZE // 2, inH + MSIZE // 2):
-        for k in range(MSIZE // 2, inW + MSIZE // 2):
-            # 각 점 처리
-            S = 0.0
-            for m in range(MSIZE):
-                for n in range(MSIZE):
-                    S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
-
-    ## 임시 출력 → 원 출력 영상
-    for i in range(outH):
-        for k in range(outW):
-            value = tmpOutImage[i][k]
-            if value > 255:
-                value = 255
-            elif value < 0:
-                value = 0
-            outImage[i][k] = int(value)
-
-    displayImage()
-    print("저주파 필터 처리 완료")
+    print("마스크 처리 완료")
 
 # 유사 연산자 에지 검출 알고리즘
 def homogenOpImage() :
@@ -1279,6 +1077,8 @@ filename = ""
 penYN = False
 sx, sy, ex, ey = [0] * 4
 
+VIEW_X, VIEW_Y = 512, 512 # 화면에 보일 크기 (출력용)
+
 btnFrame, imageFrame = None, None
 
 IP_ADDR = "192.168.56.108"
@@ -1286,6 +1086,32 @@ USER_NAME = "root"
 USER_PASS = "1234"
 DB_NAME = "BigData_DB"
 CHAR_SET = "utf8"
+
+# algorithm mask
+emboss = [[-1, 0, 0],
+        [0, 0, 0],
+        [0, 0, 1]]
+
+BMSIZE = 5
+blurr = [[1 / (BMSIZE * BMSIZE) for i in range(BMSIZE)] for k in range(BMSIZE)]
+
+sharpening = [[0, -1, 0],
+              [-1, 5, -1],
+              [0, -1, 0]]
+
+gaussian = [[1 / 16, 1 / 8, 1 / 16],
+            [1 / 8, 1 / 4, 1 / 8],
+            [1 / 16, 1 / 8, 1 / 16]]
+
+# 고주파
+hpf = [[-1/9, -1/9, -1/9],
+       [-1/9,  8/9, -1/9],
+       [-1/9, -1/9, -1/9]]
+
+# 저주파
+lpf = [[1 / 9, 1 / 9, 1 / 9],
+       [1 / 9, 1 / 9, 1 / 9],
+       [1 / 9, 1 / 9, 1 / 9]]
 
 #################
 ## 메인 코드부 ##
@@ -1329,6 +1155,8 @@ if __name__ == '__main__':
     comvisionMenu2.add_command(label="확대(양선형보간)", command=zoomInImage2)
     comvisionMenu2.add_separator()
     comvisionMenu2.add_command(label = "히스토그램", command = histoImage)
+    comvisionMenu2.add_command(label="히스토그램2", command=histoImage2)
+    comvisionMenu2.add_separator()
     comvisionMenu2.add_command(label="명암대비", command=stretchImage)
     comvisionMenu2.add_command(label="End-In 탐색", command=endInStretchImage)
     comvisionMenu2.add_command(label="히스토그램 평활화", command=histoEqualizedImage)
@@ -1348,12 +1176,12 @@ if __name__ == '__main__':
 
     comvisionMenu4 = Menu(mainMenu)
     mainMenu.add_cascade(label="화소영역 처리", menu=comvisionMenu4)
-    comvisionMenu4.add_command(label="엠보싱", command = embossImage)
-    comvisionMenu4.add_command(label="블러링", command=blurrImage)
-    comvisionMenu4.add_command(label="샤프닝", command=sharpeningImage)
-    comvisionMenu4.add_command(label="가우시안 필터링", command=gaussianImage)
-    comvisionMenu4.add_command(label="고주파", command=onHpfImage)
-    comvisionMenu4.add_command(label="저주파", command=onLpfImage)
+    comvisionMenu4.add_command(label="엠보싱", command = lambda : maskImage(emboss, True))
+    comvisionMenu4.add_command(label="블러링", command = lambda : maskImage(blurr))
+    comvisionMenu4.add_command(label="샤프닝", command = lambda : maskImage(sharpening))
+    comvisionMenu4.add_command(label="가우시안 필터링", command = lambda : maskImage(gaussian))
+    comvisionMenu4.add_command(label="고주파", command = lambda : maskImage(hpf, True))
+    comvisionMenu4.add_command(label="저주파", command = lambda : maskImage(lpf))
     comvisionMenu4.add_separator()
     comvisionMenu4.add_command(label="단순 경계선 검출", command=homogenOpImage)
     comvisionMenu4.add_command(label="로버츠", command=lambda : firstOrderDiff("roberts"))
@@ -1381,5 +1209,8 @@ if __name__ == '__main__':
 
     imageFrame = tkinter.Frame(window)
     imageFrame.pack()
+
+    status = Label(window, text = "이미지 정보 : ", bd = 1, relief = SUNKEN, anchor = W)  # 밑에 고정
+    status.pack(side = BOTTOM, fill = X)
 
     window.mainloop()
