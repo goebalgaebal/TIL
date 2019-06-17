@@ -658,7 +658,7 @@ def embossImage() :
 
     ## 임시 입력 영상 메모리 확보
     tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE -1, 127) # 중간값을 넘겨주는 것이 좋다
-    tmpOutUmage = malloc(outH, outW)
+    tmpOutImage = malloc(outH, outW)
 
     ## 원 입력 → 임시 입력
     for i in range(inH) :
@@ -673,18 +673,18 @@ def embossImage() :
             for m in range(MSIZE) :
                 for n in range(MSIZE) :
                     S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutUmage[i - MSIZE // 2][k - MSIZE // 2] = S
+            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
 
     ## 127 더하기
     # 마스크의 합 = 0인 마스크 → 가중치 0, 일반적으로 어두워짐, 마스크의 합 = 1인 마스크 존재
     for i in range(outH) :
         for k in range(outW) :
-            tmpOutUmage[i][k] += 127
+            tmpOutImage[i][k] += 127
 
     ## 임시 출력 → 원 출력 영상
     for i in range(outH):
         for k in range(outW):
-            value = tmpOutUmage[i][k]
+            value = tmpOutImage[i][k]
             if value > 255 :
                 value = 255
             elif value < 0 :
@@ -711,7 +711,7 @@ def blurrImage() :
 
     ## 임시 입력 영상 메모리 확보
     tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE -1, 127) # 중간값을 넘겨주는 것이 좋다
-    tmpOutUmage = malloc(outH, outW)
+    tmpOutImage = malloc(outH, outW)
 
     ## 원 입력 → 임시 입력
     for i in range(inH) :
@@ -726,12 +726,12 @@ def blurrImage() :
             for m in range(MSIZE) :
                 for n in range(MSIZE) :
                     S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutUmage[i - MSIZE // 2][k - MSIZE // 2] = S
+            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
 
     ## 임시 출력 → 원 출력 영상
     for i in range(outH):
         for k in range(outW):
-            value = tmpOutUmage[i][k]
+            value = tmpOutImage[i][k]
             if value > 255 :
                 value = 255
             elif value < 0 :
@@ -761,7 +761,7 @@ def sharpeningImage():
 
     ## 임시 입력 영상 메모리 확보
     tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutUmage = malloc(outH, outW)
+    tmpOutImage = malloc(outH, outW)
 
     ## 원 입력 → 임시 입력
     for i in range(inH):
@@ -776,12 +776,12 @@ def sharpeningImage():
             for m in range(MSIZE):
                 for n in range(MSIZE):
                     S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutUmage[i - MSIZE // 2][k - MSIZE // 2] = S
+            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
 
     ## 임시 출력 → 원 출력 영상
     for i in range(outH):
         for k in range(outW):
-            value = tmpOutUmage[i][k]
+            value = tmpOutImage[i][k]
             if value > 255:
                 value = 255
             elif value < 0:
@@ -810,7 +810,7 @@ def gaussianImage() :
 
     ## 임시 입력 영상 메모리 확보
     tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutUmage = malloc(outH, outW)
+    tmpOutImage = malloc(outH, outW)
 
     ## 원 입력 → 임시 입력
     for i in range(inH):
@@ -825,12 +825,12 @@ def gaussianImage() :
             for m in range(MSIZE):
                 for n in range(MSIZE):
                     S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutUmage[i - MSIZE // 2][k - MSIZE // 2] = S
+            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
 
     ## 임시 출력 → 원 출력 영상
     for i in range(outH):
         for k in range(outW):
-            value = tmpOutUmage[i][k]
+            value = tmpOutImage[i][k]
             if value > 255:
                 value = 255
             elif value < 0:
@@ -860,7 +860,7 @@ def onHpfImage() :
 
     ## 임시 입력 영상 메모리 확보
     tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutUmage = malloc(outH, outW)
+    tmpOutImage = malloc(outH, outW)
 
     ## 원 입력 → 임시 입력
     for i in range(inH):
@@ -875,18 +875,18 @@ def onHpfImage() :
             for m in range(MSIZE):
                 for n in range(MSIZE):
                     S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutUmage[i - MSIZE // 2][k - MSIZE // 2] = S
+            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
 
     ## 127 더하기
     # 마스크의 합 = 0인 마스크 → 가중치 0, 일반적으로 어두워짐, 마스크의 합 = 1인 마스크 존재
     for i in range(outH):
         for k in range(outW):
-            tmpOutUmage[i][k] += 127
+            tmpOutImage[i][k] += 127
 
     ## 임시 출력 → 원 출력 영상
     for i in range(outH):
         for k in range(outW):
-            value = tmpOutUmage[i][k]
+            value = tmpOutImage[i][k]
             if value > 255:
                 value = 255
             elif value < 0:
@@ -916,7 +916,7 @@ def onLpfImage() :
 
     ## 임시 입력 영상 메모리 확보
     tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutUmage = malloc(outH, outW)
+    tmpOutImage = malloc(outH, outW)
 
     ## 원 입력 → 임시 입력
     for i in range(inH):
@@ -931,12 +931,12 @@ def onLpfImage() :
             for m in range(MSIZE):
                 for n in range(MSIZE):
                     S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutUmage[i - MSIZE // 2][k - MSIZE // 2] = S
+            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
 
     ## 임시 출력 → 원 출력 영상
     for i in range(outH):
         for k in range(outW):
-            value = tmpOutUmage[i][k]
+            value = tmpOutImage[i][k]
             if value > 255:
                 value = 255
             elif value < 0:
@@ -962,7 +962,7 @@ def homogenOpImage() :
 
     ## 임시 입력 영상 메모리 확보
     tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutUmage = malloc(outH, outW)
+    tmpOutImage = malloc(outH, outW)
 
     ## 원 입력 → 임시 입력
     for i in range(inH):
@@ -977,12 +977,12 @@ def homogenOpImage() :
             for m in range(MSIZE):
                 for n in range(MSIZE):
                     np.append(abs(tmpInImage[i][k] - tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]))
-            tmpOutUmage[i - MSIZE // 2][k - MSIZE // 2] = max(np)
+            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = max(np)
 
     ## 임시 출력 → 원 출력 영상
     for i in range(outH):
         for k in range(outW):
-            value = tmpOutUmage[i][k]
+            value = tmpOutImage[i][k]
             if value > 255:
                 value = 255
             elif value < 0:
@@ -1031,7 +1031,7 @@ def firstOrderDiff(mask) :
 
     ## 임시 입력 영상 메모리 확보
     tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutUmage = malloc(outH, outW)
+    tmpOutImage = malloc(outH, outW)
 
     ## 원 입력 → 임시 입력
     for i in range(inH):
@@ -1047,12 +1047,12 @@ def firstOrderDiff(mask) :
                 for n in range(MSIZE):
                     valRow += maskRow[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
                     valCol += maskCol[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutUmage[i - MSIZE // 2][k - MSIZE // 2] = math.sqrt(valRow * valRow + valCol * valCol)
+            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = math.sqrt(valRow * valRow + valCol * valCol)
 
     ## 임시 출력 → 원 출력 영상
     for i in range(outH):
         for k in range(outW):
-            value = tmpOutUmage[i][k]
+            value = tmpOutImage[i][k]
             if value > 255:
                 value = 255
             elif value < 0:
@@ -1081,7 +1081,7 @@ def secondOrderDiff() :
 
     ## 임시 입력 영상 메모리 확보
     tmpInImage = malloc(inH + MSIZE - 1, inW + MSIZE - 1, 127)  # 중간값을 넘겨주는 것이 좋다
-    tmpOutUmage = malloc(outH, outW)
+    tmpOutImage = malloc(outH, outW)
 
     ## 원 입력 → 임시 입력
     for i in range(inH):
@@ -1096,12 +1096,12 @@ def secondOrderDiff() :
             for m in range(MSIZE):
                 for n in range(MSIZE):
                     S += mask[m][n] * tmpInImage[i + m - MSIZE // 2][k + n - MSIZE // 2]
-            tmpOutUmage[i - MSIZE // 2][k - MSIZE // 2] = S
+            tmpOutImage[i - MSIZE // 2][k - MSIZE // 2] = S
 
     ## 임시 출력 → 원 출력 영상
     for i in range(outH):
         for k in range(outW):
-            value = tmpOutUmage[i][k]
+            value = tmpOutImage[i][k]
             if value > 255:
                 value = 255
             elif value < 0:
