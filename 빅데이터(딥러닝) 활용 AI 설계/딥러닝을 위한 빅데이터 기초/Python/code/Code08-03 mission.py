@@ -345,6 +345,7 @@ def rotateImage(val = "") :
                     outImage[xd][yd] = inImage[i][k]
         displayImage()
 
+# 영상 회전 알고리즘 - 중심, 역방향
 def rotateImage2() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
     ## [중요] 출력 영상 크기 결정 ##
@@ -359,8 +360,8 @@ def rotateImage2() :
     angle = askinteger("회전", "각도를 입력해주세요", minvalue = 1, maxvalue = 360)
     radian = angle * math.pi / 180
     xc, yc = outW // 2, outH // 2
-    for i in range(inH) :
-        for k in range(inW) :
+    for i in range(outH) :
+        for k in range(outW) :
             xs = i
             ys = k
 
@@ -370,8 +371,10 @@ def rotateImage2() :
 
             # backward mapping
 
-            if 0 <= xd < inH and 0 <= yd < inW :
-                outImage[xd][yd] = inImage[i][k]
+            if 0 <= xd < outH and 0 <= yd < outW :
+                outImage[xs][ys] = inImage[xd][yd]
+            else :
+                outImage[xs][ys] = 255
     displayImage()
 
 def zoomOutImage() :
@@ -1111,6 +1114,70 @@ def secondOrderDiff() :
     displayImage()
     print("라플라시안 완료")
 
+# 모핑 알고리즘
+def morphImage() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+    ## [중요] 출력 영상 크기 결정 ##
+    outH = inH
+    outW = inW
+    ## 추가 영상 선택
+    filename2 = askopenfilename(parent=window,
+                               filetypes=(("RAW 파일", "*.raw;"), ("모든 파일", "*.*")))
+
+    if filename2 == "" or filename2 == None :
+        return
+    fsize = os.path.getsize(filename2)  # 파일의 크기 (바이트)
+    inH2 = inW2 = int(math.sqrt(fsize))  # 핵심 코드
+
+    ## 입력영상 메모리 확보 ##
+    inImage2 = malloc(inH2, inW2)
+
+    # 파일 → 메모리
+    with open(filename2, 'rb') as rFp:  # 이진파일을 읽기 모드로 열기
+        for i in range(inH2):
+            for k in range(inW2):
+                inImage2[i][k] = int(ord(rFp.read(1)))
+
+    ## 메모리 할당 ##
+    outImage = []
+    outImage = malloc(outH, outW)
+
+    ## 컴퓨터 비전 알고리즘 ##
+    # w1 = askinteger("원영상 가중치", "가중치 값(%)을 입력해주세요", minvalue=0, maxvalue=100)
+    # w2 = 1 - (w1 / 100)
+    # w1 = 1 - w2
+    # for i in range(inH):
+    #     for k in range(inW):
+    #         newValue = int(inImage[i][k] * w1 + inImage2[i][k] * w2)
+    #         if newValue > 255:  # overflow 처리
+    #             newValue = 255
+    #         if newValue < 0:  # underflow 처리
+    #             newValue = 0
+    #         outImage[i][k] = newValue
+    # displayImage()
+
+    import threading
+    import time
+    def morpFunc():
+        w1 = 1;
+        w2 = 0
+        for _ in range(20):
+            for i in range(inH):
+                for k in range(inW):
+                    newValue = int(inImage[i][k] * w1 + inImage2[i][k] * w2)
+                    if newValue > 255:
+                        newValue = 255
+                    elif newValue < 0:
+                        newValue = 0
+                    outImage[i][k] = newValue
+            displayImage()
+            w1 -= 0.05;
+            w2 += 0.05
+            time.sleep(0.5)
+
+    threading.Thread(target=morpFunc).start()
+    print("모핑 완료")
+
 ###################
 ## MySQL DB 연동 ##
 ###################
@@ -1252,6 +1319,8 @@ if __name__ == '__main__':
     comvisionMenu1.add_command(label="입/출력 영상의 평균값", command=avgImage)
     comvisionMenu1.add_separator()
     comvisionMenu1.add_command(label="파라볼라", command=paraImage)
+    comvisionMenu1.add_separator()
+    comvisionMenu1.add_command(label="모핑", command=morphImage)
 
     comvisionMenu2 = Menu(mainMenu)
     mainMenu.add_cascade(label="화소점 처리(통계)", menu=comvisionMenu2)
@@ -1275,7 +1344,7 @@ if __name__ == '__main__':
     comvisionMenu3.add_command(label="확대", command=zoomInImage)
     comvisionMenu3.add_separator()
     comvisionMenu3.add_command(label="회전", command=rotateImage)
-    comvisionMenu3.add_command(label="회전2", command=rotateImage2)
+    comvisionMenu3.add_command(label="회전2(중심, 역방향)", command=rotateImage2)
 
     comvisionMenu4 = Menu(mainMenu)
     mainMenu.add_cascade(label="화소영역 처리", menu=comvisionMenu4)
