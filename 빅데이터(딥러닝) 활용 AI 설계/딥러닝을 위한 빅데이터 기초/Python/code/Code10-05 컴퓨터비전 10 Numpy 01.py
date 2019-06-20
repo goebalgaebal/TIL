@@ -27,7 +27,6 @@ def loadImage(fname) :
     fsize = os.path.getsize(fname)
     inH = inW = int(math.sqrt(fsize))
 
-    inImage = []
     inImage = np.fromfile(fname, dtype = "uint8")
     inImage = inImage.reshape([inH, inW])
 
@@ -58,51 +57,60 @@ def saveImage() :
     saveFp.close()
 
 def displayImage() :
-    global imageFrame, btnFrame, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
     global VIEW_X, VIEW_Y
-    if canvas != None : # 이전에 실행한 적이 있는 경우(이전 이미지가 있는 경우)
+    if canvas != None:  # 이전에 실행한 적이 있는 경우(이전 이미지가 있는 경우)
         canvas.destroy()
 
     ## 고정된 화면 크기
-    if inH <= VIEW_Y or inW <= VIEW_X :
-        outW = inW
-        outH = inH
+    if outH <= VIEW_Y or outW <= VIEW_X:
+        VIEW_X = outW
+        VIEW_Y = outH
         step = 1
 
-        displayW = btnFrame.winfo_width() if outW < btnFrame.winfo_width() else outW
+    else:
+        VIEW_X = 512
+        VIEW_Y = 512
+        step = outW / VIEW_X  # 정수로 떨어지지 않는 경우 처리를 위해 실수로 계산
+
+    print(btnFrame.winfo_width(), VIEW_X, VIEW_Y)
+    if outW < btnFrame.winfo_width() : # 버튼 프레임보다 이미지가 작은 경우
+        window.geometry(str(int(btnFrame.winfo_width() * 1.2)) + 'x' + str(int((btnFrame.winfo_height() + VIEW_Y) * 1.2)))  # 벽
     else :
-        outW = VIEW_X
-        outH = VIEW_Y
-        step = inW / VIEW_X # 정수로 떨어지지 않는 경우 처리를 위해 실수로 계산
+        window.geometry(str(int(VIEW_X * 1.2)) + 'x' + str(int(VIEW_Y * 1.2)))
+    canvas = Canvas(imageFrame, height=VIEW_Y, width=VIEW_X)
+    paper = PhotoImage(height=VIEW_Y, width=VIEW_X)
+    canvas.create_image((VIEW_Y // 2, VIEW_X // 2), image=paper, state='normal')
 
-        displayW = VIEW_X
-
-    print("DISPLAY 출력 크기", outH, outW)
-    window.geometry(str(int(displayW * 1.2)) + 'x' + str(int(outW * 1.2)))
-    canvas = Canvas(imageFrame, height=outH, width=outW)
-    paper = PhotoImage(height=outH, width=outW)
-    canvas.create_image((outH // 2, outW // 2), image=paper, state="normal")
-
+    ## 화면 크기를 조절
+    # window.geometry(str(outH) + 'x' + str(outW)) # 벽
+    # canvas = Canvas(window, height=outH, width=outW) # 보드
+    # paper = PhotoImage(height=outH, width=outW) # 빈 종이
+    # canvas.create_image((outH//2, outW//2), image=paper, state='normal')
+    # ## 출력영상 --> 화면에 한점씩 찍자.
+    # for i in range(outH) :
+    #     for k in range(outW) :
+    #         r = g = b = outImage[i][k]
+    #         paper.put("#%02x%02x%02x" % (r, g, b), (k, i))
     ## 영상 출력 성능 개선
     import numpy
-    rgbStr = "" # 전체 픽셀의 문자열을 저장
-    for i in numpy.arange(0, inH, step) : # numpy의 arange는 실수 step 사용 가능
-        tmpStr = ""
-        for k in numpy.arange(0, inW, step) :
-            i = int(i); k = int(k)
+    rgbStr = ''  # 전체 픽셀의 문자열을 저장
+    for i in numpy.arange(0, outH, step):
+        tmpStr = ''
+        for k in numpy.arange(0, outW, step):
+            i = int(i);
+            k = int(k)
             r = g = b = int(outImage[i][k])
-            tmpStr += ' #%02x%02x%02x'  % (r, g, b) # [중요] 앞 한 칸 뛰기
-        rgbStr += '{' + tmpStr + '} '# [중요] 뒤 한 칸 뛰기
+            tmpStr += ' #%02x%02x%02x' % (r, g, b)
+        rgbStr += '{' + tmpStr + '} '
     paper.put(rgbStr)
 
-
     ## 마우스 이벤트
-    canvas.bind("<Button-1>", mouseClick)
-    canvas.bind("<ButtonRelease-1>", mouseDrop)
+    canvas.bind('<Button-1>', mouseClick)
+    canvas.bind('<ButtonRelease-1>', mouseDrop)
+    canvas.pack(expand=1, anchor=CENTER)
 
-    canvas.pack(expand = 1, anchor = CENTER)
-
-    status.configure(text = "이미지 정보 : " + str(outW) + 'x' + str(outH))
+    status.configure(text='이미지 정보:' + str(outW) + 'x' + str(outH))
 
 ##############################################
 ## 컴퓨터 비전(영상처리) 알고리즘 함수 모음 ##
@@ -113,6 +121,7 @@ def equalImage() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
     outH = inH; outW = inW
 
+    # outImage = inImage.copy()
     outImage = inImage[:]
     displayImage()
 
@@ -121,7 +130,7 @@ def addImage() :
     outH = inH; outW = inW
 
     value = askinteger("밝게/어둡게 하기", "값을 입력해주세요", minvalue = -255, maxvalue = 255)
-    inImage = inImage.astype(np.int16)
+    inImage = inImage.astype(np.int16) # uint8은 255가 최대값이라 error가 날 수 있으므로 np.int16으로 변환 후 계산
     outImage = inImage + value
 
     # start = time.time()
@@ -185,9 +194,7 @@ def bwImage() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
     outH = inH; outW = inW
 
-    avg = inImage.mean()
-    print(avg)
-    outImage = np.where(inImage >= avg, 255, 0)
+    outImage = np.where(inImage >= inImage.mean(), 255, 0)
     displayImage()
     print("이진화(통계) 완료")
 
@@ -196,10 +203,8 @@ def paraImage() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
     outH = inH; outW = inW
 
-    LUT = [0 for _ in range(256)]  # LookUp Tale 연산량이 줄어듦
-    # 0 ~ 255 값의 각 계산을 미리 연산
-    for input in range(256):
-        LUT[input] = int(255 - 255 * math.pow(input / 128 - 1, 2))
+    x = np.array([i for i in range(0, 256)])
+    LUT = 255 - 255 * np.power(x / 128 - 1, 2)
     outImage = np.array(LUT)[inImage]
     displayImage()
     print("파라볼라 완료")
@@ -208,9 +213,9 @@ def paraImage() :
 def upDownImage() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
     outH = inH; outW = inW
-    outImage = malloc(outH, outW)
 
     outImage = np.flip(inImage)
+    # outImage = inImage[::-1, :]
     displayImage()
 
 def avgImage() :
@@ -289,13 +294,9 @@ def zoomOutImage() :
 
     scale = askinteger("축소", "배율을 입력해주세요", minvalue=2, maxvalue=8)
     outH = inH // scale;    outW = inW // scale
-    outImage = malloc(outH, outW)
 
     outImage = inImage[:]
-
-    for i in range(outH):
-        for k in range(outW):
-             outImage[i][k] = inImage[i * scale][k * scale]
+    outImage = inImage[::scale, ::scale]
     displayImage()
 
 # 영상 축소 알고리즘 (평균변환)
@@ -327,25 +328,11 @@ def zoomInImage() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
 
     scale = askinteger("축소", "배율을 입력해주세요", minvalue=2, maxvalue=4)
+    outH = inH * scale; outW = inW * scale
 
-    ## [중요] 출력 영상 크기 결정 ##
-    outH = inH * scale
-    outW = inW * scale
-
-    ## 메모리 할당 ##
-    outImage = []
-    outImage = malloc(outH, outW)
-
-    ## 컴퓨터 비전 알고리즘 ##
-    ## forward
-    # for i in range(inH):
-    #     for k in range(inW):
-    #         outImage[i * scale][k * scale] = inImage[i][k]
-
-    ## backward
-    for i in range(outH):
-        for k in range(outW):
-            outImage[i][k] = inImage[i // scale][k // scale]
+    outImage = [];  outImage = malloc(outH, outW)
+    print("ZOOMIN", outH, outW)
+    outImage = np.kron(inImage, np.ones((scale, scale)))
     displayImage()
 
 # 영상 확대 알고리즘 (양선형보간)
@@ -406,11 +393,15 @@ def mouseDrop(event) :
     outImage = malloc(outH, outW)
 
     mx = sx - ex;   my = sy - ey
+    if mx < 0 and my < 0 :
+        outImage[-mx:inH, -my:inW] = inImage[0:inH+mx, 0:inW+my]
+    elif mx > 0 and my >= 0 :
+        outImage[0:inH-mx, 0:inW-my] = inImage[mx:inH, my:inW]
+    elif mx < 0 and my >= 0 :
+        outImage[0:inH-mx, -my:inW] = inImage[mx:inH, 0:inW+my]
+    elif mx >= 0 and my < 0:
+        outImage[-mx:inH, 0:inW-my] = inImage[0:inH+mx, my:inW]
 
-    for i in range(inH):
-        for k in range(inW):
-            if 0 <= i - my < outW and 0 <= k - mx < outH :
-                outImage[i - my][k - mx] = inImage[i][k]
     penYN == False
     displayImage()
 
