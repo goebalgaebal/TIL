@@ -1,5 +1,7 @@
 from sklearn import svm, metrics
+from sklearn.model_selection import train_test_split
 import pandas as pd
+
 '''
 붓꽃 데이터 분류기 (머신러닝)
 개요 : 150개 붓꽃 정보(꽃받침 길이, 꽃받침 폭, 꽃잎 길이, 꽃잎 폭)
@@ -9,14 +11,15 @@ CSV 파일 : iris.csv
 
 # 0. 훈련 데이터, 테스트데이터 준비
 csv = pd.read_csv("./csv/iris.csv")
-train_data = csv.iloc[0:120, :-1] # 맨 앞 전까지, index로 접근
-train_label = csv.iloc[0:120, [-1]]
-test_data = csv.iloc[120:, :-1]
-test_label = csv.iloc[120:, [-1]]
+data = csv.iloc[:, :-1]
+label = csv.iloc[:, [-1]]
+
+# 학습용, 훈련용 분리
+train_data, test_data, train_label, test_label = train_test_split(data, label, train_size=0.7)
 
 # 1. Classifire 생성(선택) → 머신러닝 알고리즘 선택
-# clf = svm.SVC(gamma="auto")
-clf = svm.NuSVC(gamma="auto")
+clf = svm.SVC(gamma="auto")
+#clf = svm.NuSVC(gamma="auto")
 
 # 2. 데이터로 학습 시키기
 # clf.fit([훈련 데이터], [정답])
