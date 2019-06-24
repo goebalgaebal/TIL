@@ -9,6 +9,15 @@ import joblib
 #################
 ## 함수 선언부 ##
 #################
+def malloc(h, w, initValue = 0) :
+    returnMemory = []
+    for _ in range(h) :
+        tmpList = []
+        for _ in range(w) :
+            tmpList.append(initValue)
+        returnMemory.append(tmpList)
+    return returnMemory
+
 def changeValue(list):
     return [float(v) / 255 for v in list]
 
@@ -74,35 +83,95 @@ def studyScore():
 
 def predictMouse() :
     global csv, train_data, train_label, test_data, test_label, clf
-    global window, canvas, paper, VIEW_X, VIEW_Y
+    global window, canvas, paper, VIEW_X, VIEW_Y, inImage, outImage, inH, inW, outH, outW
     if clf == None :
-        status.configure(test = "모델을 먼저 생성하세요")
+        status.configure(text = "모델을 먼저 선택하세요")
         return
 
-    window.geometry(str(VIEW_X) + 'x' + str(VIEW_Y))
     canvas = Canvas(window, height=VIEW_Y, width=VIEW_X, bg="black")
     paper = PhotoImage(height=VIEW_Y, width=VIEW_X)
     canvas.create_image((VIEW_Y // 2, VIEW_X // 2), image=paper, state='normal')
     canvas.pack(expand=1, anchor=CENTER)
 
     canvas.bind("<Button-3>", rightMouseClick)
+    canvas.bind("<Button-2>", midMouseClick)
     canvas.bind("<Button-1>", leftMouseClick)
     canvas.bind("<B1-Motion>", leftMouseMove)
     canvas.bind("<ButtonRelease-1>", leftMouseDrop)
 
-def rightMouseClick() :
-    pass
+def rightMouseClick(event) :
+    global csv, train_data, train_label, test_data, test_label, clf
+    global window, canvas, paper, VIEW_X, VIEW_Y, inImage, outImage, inH, inW, outH, outW
+    global leftMousePressYN
 
+    inImage = []
+    inImage = malloc(280, 280)
 
-def leftMouseClick() :
+    # paper → inImage
+    for i in range(280) :
+        for k in range(280) :
+            pixel = paper.get(k, i) # (r, g, b)
+            if pixel[0] == 0 :
+                inImage[i][k] = 0
+            else :
+                inImage[i][k] = 1
+
+    # 280 → 28
+    outImage = []
+    outImage = malloc(28, 28)
+    scale = 10
+
+    for i in range(28):
+        for k in range(28):
+             outImage[i][k] = inImage[i*scale][k*scale]
+
+    # 2차원 → 1차원
+    my_data = []
+    for i in range(28) :
+        for k in range(28) :
+            my_data.append(outImage[i][k])
+
+    # 예측하기
+    result = clf.predict([my_data])
+    status.configure(text="예측 숫자 : " + str(result[0]))
+
+def midMouseClick(event) :
+    global csv, train_data, train_label, test_data, test_label, clf
+    global window, canvas, paper, VIEW_X, VIEW_Y, inImage, outImage, inH, inW, outH, outW
+    global leftMousePressYN
+
+    rgbStr = ""  # 전체 픽셀의 문자열을 저장
+    for i in range(280):
+        tmpStr = ""
+        for k in range(280):
+            i = int(i); k = int(k)
+            r = g = b = 0
+            tmpStr += ' #%02x%02x%02x' % (r, g, b)
+        rgbStr += '{' + tmpStr + '} '
+    paper.put(rgbStr)
+
+def leftMouseClick(event) :
     global leftMousePressYN
     leftMousePressYN = True
 
-def leftMouseMove() :
-    pass
+def leftMouseMove(event) :
+    global csv, train_data, train_label, test_data, test_label, clf
+    global window, canvas, paper, VIEW_X, VIEW_Y, inImage, outImage, inH, inW, outH, outW
+    global leftMousePressYN
 
-def leftMouseDrop() :
-    pass
+    if leftMousePressYN == False :
+        return
+
+    x = event.x;    y = event.y
+    # 주위 40X40을 찍는다
+    for i in range(-15, 15, 1) :
+        for k in range(-15, 15, 1) :
+            if 0 <= x+i < 280 and 0 <= y+k < 280 :
+                paper.put("#%02x%02x%02x" % (255, 255, 255), (x+i, y+k))
+
+def leftMouseDrop(event) :
+    global leftMousePressYN
+    leftMousePressYN = False
 
 #####################
 ## 전역변수 선언부 ##
@@ -112,6 +181,8 @@ csv, train_data, train_label, test_data, test_label, clf = [None]*6
 
 VIEW_X, VIEW_Y = 280, 280
 window, canvas, paper = [None] * 3
+inImage, outImage = [], []
+inH, inW, outH, outW = [0]*4
 
 leftMousePressYN = False
 
@@ -142,7 +213,6 @@ if __name__ == '__main__':
     predictMenu.add_cascade(label="그림파일 불러오기", command=None)
     predictMenu.add_separator()
     predictMenu.add_cascade(label="마우스로 직접 쓰기", command=predictMouse)
-
 
     status = Label(window, text = "STATUS : ", bd = 1, relief = SUNKEN, anchor = W)
     status.pack(side = BOTTOM, fill = X)
