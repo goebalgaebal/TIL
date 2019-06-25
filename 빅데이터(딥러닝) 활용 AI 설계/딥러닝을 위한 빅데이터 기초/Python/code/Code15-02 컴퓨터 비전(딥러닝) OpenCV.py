@@ -6,6 +6,7 @@ from PIL import Image, ImageFilter, ImageEnhance, ImageOps
 import matplotlib.pyplot as plt
 import math
 import numpy as np
+import cv2
 
 #################
 ## 함수 선언부 ##
@@ -20,13 +21,24 @@ def malloc(h, w, initValue = 0) :
         returnMemory.append(tmpList)
     return returnMemory
 
-def loadImageColor(fname) :
+def loadImageColor(fnameOrCvData) : # 파일명 or OpenCV 개체
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW, photoRGB
-    global photo
+    global photo, cvPhoto
     inImage = []
+    
+    # PIL 개체 → OpenCV 개체로 복사
+    if type(fnameOrCvData) == str :
+        #cvData = cv2.imread(fnameOrCvData) # 파일 → CV 개체
+        cvData = cv2.imdecode(np.fromfile(fnameOrCvData, dtype=np.uint8), -1)
+    else :
+        cvData = fnameOrCvData
+
+
+    cvPhoto = cv2.cvtColor(cvData, cv2.COLOR_BGR2RGB) # [중요] CV개체
+    photo = Image.fromarray(cvPhoto)
 
     ## 데이터를 받아오는 방법 1
-    photo = Image.open(fname) # PIL 객체
+    # photo = Image.open(fname) # PIL 객체
     inH = photo.height; inW = photo.width
 
     ## 입력영상 메모리 확보 ##
@@ -57,6 +69,7 @@ def openImageColor() :
     if filename == '' or filename == None :
         return
 
+    print(filename)
     loadImageColor(filename)
     equalImageColor()
     displayImageColor()
@@ -514,7 +527,7 @@ def morphImageColor() :
 
 def addSvaluePillow():
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    global photo
+    global photo, cvPhoto
 
     value = askfloat("", "0 ~ 1 ~ 10의 값을 입력해주세요")
 
@@ -869,7 +882,7 @@ def embossImageRGB() :
 
 def embossImagePillow() :
     global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
-    global photo
+    global photo, cvPhoto
 
     photo2 = photo.copy()
     photo2 = photo2.filter(ImageFilter.EMBOSS)
@@ -1492,6 +1505,151 @@ def saveExcelArtColor():
     wb.close() # 파일 저장
     print("Excel save OK")
 
+###############################
+## OpenCV 컴퓨터 비전 딥러닝 ##
+##############################
+def toColorOutArr(pillowPhoto) :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW, photoRGB
+    global photo, cvPhoto
+
+    if inImage == None:
+        return
+
+    outH = pillowPhoto.height; outW = pillowPhoto.width
+    outImage = []
+    for i in range(3):
+        outImage.append(malloc(outH, outW))
+
+    photoRGB = pillowPhoto.convert("RGB")
+    for i in range(outH) :
+        for k in range(outW) :
+            r, g, b = photoRGB.getpixel((k, i))
+            outImage[R][i][k], outImage[G][i][k], outImage[B][i][k] = r, g, b
+
+    displayImageColor()
+
+def embossOpenCV() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW, photoRGB
+    global photo, cvPhoto
+
+    if inImage == None :
+        return
+
+    cvPhoto2 = cvPhoto[:]
+    mask = np.zeros((3, 3), np.float32)
+    mask[0, 0] = -1;    mask[2, 2] = 1
+    cvPhoto2 = cv2.filter2D(cvPhoto2, -1, mask)
+    cvPhoto2 += 127
+    photo2 = Image.fromarray(cvPhoto2)
+    toColorOutArr(photo2)
+
+def greyscaleOpenCV() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW, photoRGB
+    global photo, cvPhoto
+
+    if inImage == None :
+        return
+
+    cvPhoto2 = cvPhoto[:]
+    cvPhoto2 = cv2.cvtColor(cvPhoto2, cv2.COLOR_RGB2GRAY)
+    photo2 = Image.fromarray(cvPhoto2)
+    toColorOutArr(photo2)
+
+def blurOpenCV() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW, photoRGB
+    global photo, cvPhoto
+
+    if inImage == None :
+        return
+
+    mSize = askinteger("블러링", "마스크 크기") # 홀수여야함
+    cvPhoto2 = cvPhoto[:]
+    mask = np.ones((mSize, mSize), np.float32) / (mSize*mSize)
+    cvPhoto2 = cv2.filter2D(cvPhoto2, -1, mask)
+    photo2 = Image.fromarray(cvPhoto2)
+    toColorOutArr(photo2)
+
+def rotateOpenCV() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW, photoRGB
+    global photo, cvPhoto
+
+    if inImage == None :
+        return
+
+    angle = askinteger("회전", "각도")  # 홀수여야함
+    cvPhoto2 = cvPhoto[:]
+    rotate_matrix = cv2.getRotationMatrix2D((outH //2, outW//2), angle, 1) # 중앙점, 각도, 스케일
+    cvPhoto2 = cv2.warpAffine(cvPhoto2, rotate_matrix, (outH, outW))
+    photo2 = Image.fromarray(cvPhoto2)
+    toColorOutArr(photo2)
+
+def zoomInOpenCV() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW, photoRGB
+    global photo, cvPhoto
+
+    if inImage == None:
+        return
+
+    scale = askfloat("확대/축소", "배율") # 1보다 작은 수라면 축소
+    cvPhoto2 = cvPhoto[:]
+    cvPhoto2 = cv2.resize(cvPhoto2, None, fx=scale, fy=scale)
+    photo2 = Image.fromarray(cvPhoto2)
+    toColorOutArr(photo2)
+
+def waveHorOpenCV() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW, photoRGB
+    global photo, cvPhoto
+
+    if inImage == None:
+        return
+
+    cvPhoto2 = np.zeros(cvPhoto.shape, dtype=cvPhoto.dtype)
+    for i in range(inH) :
+        for k in range(inW) :
+            oy = int(15.0 * math.sin(2*3.14*k / 180))
+            ox = 0
+            if i + oy < inH :
+                cvPhoto2[i][k] = cvPhoto[(i+oy)%inH][k]
+            else :
+                cvPhoto2[i][k] = 0
+    photo2 = Image.fromarray(cvPhoto2)
+    toColorOutArr(photo2)
+
+def waveVirOpenCV() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW, photoRGB
+    global photo, cvPhoto
+
+    if inImage == None:
+        return
+
+    cvPhoto2 = np.zeros(cvPhoto.shape, dtype=cvPhoto.dtype)
+    for i in range(inH):
+        for k in range(inW):
+            ox = int(25.0 * math.sin(2 * 3.14 * i / 180))
+            oy = 0
+            if k + ox < inW:
+                cvPhoto2[i][k] = cvPhoto[i][(k + ox) % inW]
+            else:
+                cvPhoto2[i][k] = 0
+    photo2 = Image.fromarray(cvPhoto2)
+    toColorOutArr(photo2)
+
+def cartoonOpenCV() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW, photoRGB
+    global photo, cvPhoto
+
+    if inImage == None:
+        return
+
+    cvPhoto2 = cvPhoto[:]
+    cvPhoto2 = cv2.cvtColor(cvPhoto2, cv2.COLOR_RGB2GRAY)
+    cvPhoto2 = cv2.medianBlur(cvPhoto2, 7)
+    edges = cv2.Laplacian(cvPhoto2, cv2.CV_8U, ksize=5)
+    ret, mask = cv2.threshold(edges, 100, 255, cv2.THRESH_BINARY_INV)
+    cvPhoto2 = cv2.cvtColor(mask, cv2.COLOR_GRAY2RGB)
+    photo2 = Image.fromarray(cvPhoto2)
+    toColorOutArr(photo2)
+
 #####################
 ## 전역변수 선언부 ##
 #####################
@@ -1635,6 +1793,21 @@ if __name__ == '__main__':
     comVisionMenu5.add_command(label="Excel 열기", command=openExcelColor)
     comVisionMenu5.add_command(label="Excel로 저장", command=saveExcelColor)
     comVisionMenu5.add_command(label="Excel art로 저장", command=saveExcelArtColor)
+
+    openCVMenu = Menu(mainMenu)
+    mainMenu.add_cascade(label="OpenCV 딥러닝", menu=openCVMenu)
+    openCVMenu.add_command(label="엠보싱(OpenCV)", command=embossOpenCV)
+    openCVMenu.add_command(label="그레이스케일(OpenCV)", command=greyscaleOpenCV)
+    openCVMenu.add_command(label="blur(OpenCV)", command=blurOpenCV)
+    openCVMenu.add_separator()
+    openCVMenu.add_command(label="회전", command=rotateOpenCV)
+    openCVMenu.add_command(label="확대", command=zoomInOpenCV)
+    openCVMenu.add_separator()
+    openCVMenu.add_command(label="수평 웨이브", command=waveHorOpenCV)
+    openCVMenu.add_command(label="수직 웨이브", command=waveVirOpenCV)
+    openCVMenu.add_separator()
+    openCVMenu.add_command(label="카툰화", command=cartoonOpenCV)
+
 
     btnFrame = tkinter.Frame(window)
     btnFrame.pack()
