@@ -88,9 +88,13 @@ def predictMouse() :
         status.configure(text = "모델을 먼저 선택하세요")
         return
 
+    inImage = malloc(280, 280)
+    if canvas != None :
+        canvas.delete()
+
     canvas = Canvas(window, height=VIEW_Y, width=VIEW_X, bg="black")
-    paper = PhotoImage(height=VIEW_Y, width=VIEW_X)
-    canvas.create_image((VIEW_Y // 2, VIEW_X // 2), image=paper, state='normal')
+    #paper = PhotoImage(height=VIEW_Y, width=VIEW_X)
+    #canvas.create_image((VIEW_Y // 2, VIEW_X // 2), image=paper, state='normal')
     canvas.pack(expand=1, anchor=CENTER)
 
     canvas.bind("<Button-3>", rightMouseClick)
@@ -103,18 +107,6 @@ def rightMouseClick(event) :
     global csv, train_data, train_label, test_data, test_label, clf
     global window, canvas, paper, VIEW_X, VIEW_Y, inImage, outImage, inH, inW, outH, outW
     global leftMousePressYN
-
-    inImage = []
-    inImage = malloc(280, 280)
-
-    # paper → inImage
-    for i in range(280) :
-        for k in range(280) :
-            pixel = paper.get(k, i) # (r, g, b)
-            if pixel[0] == 0 :
-                inImage[i][k] = 0
-            else :
-                inImage[i][k] = 1
 
     # 280 → 28
     outImage = []
@@ -131,6 +123,12 @@ def rightMouseClick(event) :
         for k in range(28) :
             my_data.append(outImage[i][k])
 
+    # 출력해서 확인해 보기
+    for i in range(28*28) :
+        print("%2d" % my_data[i], end = "")
+        if i%28 == 0 :
+            print()
+
     # 예측하기
     result = clf.predict([my_data])
     status.configure(text="예측 숫자 : " + str(result[0]))
@@ -140,15 +138,8 @@ def midMouseClick(event) :
     global window, canvas, paper, VIEW_X, VIEW_Y, inImage, outImage, inH, inW, outH, outW
     global leftMousePressYN
 
-    rgbStr = ""  # 전체 픽셀의 문자열을 저장
-    for i in range(280):
-        tmpStr = ""
-        for k in range(280):
-            i = int(i); k = int(k)
-            r = g = b = 0
-            tmpStr += ' #%02x%02x%02x' % (r, g, b)
-        rgbStr += '{' + tmpStr + '} '
-    paper.put(rgbStr)
+    canvas.delete("all")
+    inImage = malloc(280, 280)
 
 def leftMouseClick(event) :
     global leftMousePressYN
@@ -163,11 +154,18 @@ def leftMouseMove(event) :
         return
 
     x = event.x;    y = event.y
-    # 주위 40X40을 찍는다
+    canvas.create_oval(x-15, y-15, x+15, y+15, width = 0, fill = "white")
+
+    # # 주위 30X30을 찍는다
+    # for i in range(-15, 15, 1) :
+    #     for k in range(-15, 15, 1) :
+    #         if 0 <= x+i < 280 and 0 <= y+k < 280 :
+    #             paper.put("#%02x%02x%02x" % (255, 255, 255), (x+i, y+k))
+
     for i in range(-15, 15, 1) :
         for k in range(-15, 15, 1) :
             if 0 <= x+i < 280 and 0 <= y+k < 280 :
-                paper.put("#%02x%02x%02x" % (255, 255, 255), (x+i, y+k))
+                inImage[y+k][x+i] = 1
 
 def leftMouseDrop(event) :
     global leftMousePressYN
