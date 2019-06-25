@@ -79,41 +79,54 @@ def displayImageColor() :
     global VIEW_X, VIEW_Y
     if canvas != None:  # 예전에 실행한 적이 있다.
         canvas.destroy()
-    ## 고정된 화면 크기
-    if outH <= VIEW_Y or outW <= VIEW_X:
-        VIEW_X = outW
-        VIEW_Y = outH
-        step = 1
 
+    ## 고정된 화면 크기
+    # 가로/세로 비율 계산
+    ratio = outH / outW
+    if ratio < 1:
+        VIEW_X = int(512 * ratio)
     else:
         VIEW_X = 512
-        VIEW_Y = 512
-        step = outW / VIEW_X  # 정수로 떨어지지 않는 경우 처리를 위해 실수로 계산
-
-    # print(btnFrame.winfo_width(), VIEW_X, VIEW_Y)
-    if outW < btnFrame.winfo_width():  # 버튼 프레임보다 이미지가 작은 경우
-        window.geometry(
-            str(int(btnFrame.winfo_width() * 1.2)) + 'x' + str(int((btnFrame.winfo_height() + VIEW_Y) * 1.2)))  # 벽
+    if ratio > 1:
+        VIEW_Y = int(512 * ratio)
     else:
-        window.geometry(str(int(VIEW_X * 1.2)) + 'x' + str(int(VIEW_Y * 1.2)))
-    canvas = Canvas(imageFrame, height=VIEW_Y, width=VIEW_X)
-    paper = PhotoImage(height=VIEW_Y, width=VIEW_X)
+        VIEW_Y = 512
+
+    if outH <= VIEW_X:
+        VIEW_X = outH;
+        stepX = 1
+    if outH > VIEW_X:
+        if ratio < 1:
+            VIEW_X = int(512 * ratio)
+        else:
+            VIEW_X = 512
+        stepX = outH / VIEW_X
+
+    if outW <= VIEW_Y:
+        VIEW_Y = outW;
+        stepY = 1
+    if outW > VIEW_Y:
+        if ratio > 1:
+            VIEW_Y = int(512 * ratio)
+        else:
+            VIEW_Y = 512
+
+        stepY = outW / VIEW_Y
+
+    window.geometry(str(int(VIEW_Y * 1.2)) + 'x' + str(int(VIEW_X * 1.2)))  # 벽
+    canvas = Canvas(window, height=VIEW_X, width=VIEW_Y)
+    paper = PhotoImage(height=VIEW_X, width=VIEW_Y)
     canvas.create_image((VIEW_Y // 2, VIEW_X // 2), image=paper, state='normal')
 
     import numpy
-    rgbStr = ''  # 전체 픽셀의 문자열을 저장
-    for i in numpy.arange(0, outH, step):
+    rgbStr = ''
+    for i in numpy.arange(0, outH, stepX):
         tmpStr = ''
-        for k in numpy.arange(0, outW, step):
-            i = int(i); k = int(k)
-            # r, g, b = outImage[k, i]
-            #print(np.array(outImage).shape)
-            # if np.array(outImage).shape[0] == 3 :
+        for k in numpy.arange(0, outW, stepY):
+            i = int(i);
+            k = int(k)
             r, g, b = outImage[R][i][k], outImage[G][i][k], outImage[B][i][k]
             tmpStr += ' #%02x%02x%02x' % (r, g, b)
-            # else :
-            #     h, s, v = outImage[i][k][0], outImage[i][k][1], outImage[i][k][2]
-            #     tmpStr += ' #%02x%02x%02x' % (h, s, v)
         rgbStr += '{' + tmpStr + '} '
     paper.put(rgbStr)
 
@@ -1650,6 +1663,55 @@ def cartoonOpenCV() :
     photo2 = Image.fromarray(cvPhoto2)
     toColorOutArr(photo2)
 
+def faceDetectOpenCV() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW, photoRGB
+    global photo, cvPhoto
+
+    face_cascade = cv2.CascadeClassifier(".\haar\haarcascade_mcs_mouth.xml")
+
+    cvPhoto2 = cvPhoto[:]
+    grey = cv2.cvtColor(cvPhoto2, cv2.COLOR_RGB2GRAY)
+    face_rects = face_cascade.detectMultiScale(grey, 1.1, 5)
+
+    for (x, y, w, h) in face_rects:
+        cv2.rectangle(cvPhoto2, (x, y), (x + w, y + w), (0, 255, 0), 3)
+
+    cv2.imshow("", cvPhoto2)
+    c = cv2.waitKey()
+    cv2.destroyAllWindows()
+
+def hanibalOpenCV() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+    global photo, cvPhoto
+    if inImage == None:
+        return
+
+    face_cascade = cv2.CascadeClassifier(".\haar\haarcascade_frontalface_alt.xml")
+    faceMask = cv2.imread(".\images\images(ML)\mask_hannibal.png")
+    h_mask, w_mask = faceMask.shape[:2]
+    cvPhoto2 = cvPhoto[:]
+    grey = cv2.cvtColor(cvPhoto2, cv2.COLOR_RGB2GRAY)
+
+    ## 얼굴 찾기
+    face_rects = face_cascade.detectMultiScale(grey, 1.1, 5)
+    for (x, y, w, h) in face_rects:
+        if h > 0 and w > 0:
+            x = int(x + 0.1 * w);
+            y = int(y + 0.4 * h)
+            w = int(0.8 * w);
+            h = int(0.8 * h)
+            cvPhoto2_2 = cvPhoto2[y:y + h, x:x + w]
+            faceMask_small = cv2.resize(faceMask, (w, h), interpolation=cv2.INTER_AREA)
+            grey_mask = cv2.cvtColor(faceMask_small, cv2.COLOR_RGB2GRAY)
+            ret, mask = cv2.threshold(grey_mask, 50, 255, cv2.THRESH_BINARY)
+            mask_inv = cv2.bitwise_not(mask)
+            maskedFace = cv2.bitwise_and(faceMask_small, faceMask_small, mask=mask)
+            maskedFrame = cv2.bitwise_and(cvPhoto2_2, cvPhoto2_2, mask_inv)
+            cvPhoto2[y:y + h, x:x + w] = cv2.add(maskedFace, maskedFrame)
+    photo2 = Image.fromarray(cvPhoto2)
+    toColorOutArr(photo2)
+
+
 #####################
 ## 전역변수 선언부 ##
 #####################
@@ -1807,6 +1869,9 @@ if __name__ == '__main__':
     openCVMenu.add_command(label="수직 웨이브", command=waveVirOpenCV)
     openCVMenu.add_separator()
     openCVMenu.add_command(label="카툰화", command=cartoonOpenCV)
+    openCVMenu.add_separator()
+    openCVMenu.add_command(label="얼굴인식(머신러닝)", command=faceDetectOpenCV)
+    openCVMenu.add_command(label="한니발 마스크(머신러닝)", command=hanibalOpenCV)
 
 
     btnFrame = tkinter.Frame(window)
