@@ -1711,6 +1711,131 @@ def hanibalOpenCV() :
     photo2 = Image.fromarray(cvPhoto2)
     toColorOutArr(photo2)
 
+def deepOpenCV():
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+    global photo, cvPhoto
+    if inImage == None:
+        return
+
+    cvPhoto2 = cvPhoto[:]
+    CONF_VALUE = 0.2
+
+    CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
+               "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
+               "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
+               "sofa", "train", "tvmonitor"]
+    COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
+
+    net = cv2.dnn.readNetFromCaffe(".\\object-detection-deep-learning\\MobileNetSSD_deploy.prototxt.txt",
+                                   ".\\object-detection-deep-learning\\MobileNetSSD_deploy.caffemodel")
+
+    image = cvPhoto2
+    (h, w) = image.shape[:2]
+    blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 0.007843, (300, 300), 127.5)
+
+    net.setInput(blob)
+    detections = net.forward()
+
+    for i in np.arange(0, detections.shape[2]):
+        confidence = detections[0, 0, i, 2]
+
+        if confidence > CONF_VALUE:
+            idx = int(detections[0, 0, i, 1])
+            box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+            (startX, startY, endX, endY) = box.astype("int")
+
+
+            label = "{}: {:.2f}%".format(CLASSES[idx], confidence * 100)
+            cv2.rectangle(image, (startX, startY), (endX, endY),
+                          COLORS[idx], 2)
+            y = startY - 15 if startY - 15 > 15 else startY + 15
+            cv2.putText(image, label, (startX, y),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)
+
+    cvPhoto2 = image
+    photo2 = Image.fromarray(cvPhoto2)
+    toColorOutArr(photo2)
+
+def deep2OpenCV():
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+    global photo, cvPhoto, frame
+    if inImage == None:
+        return
+
+    filename = askopenfilename(parent=None, filetypes=(("동영상 파일", "*.mp4;"),
+                                                       ("모든 파일", "*.*")))
+    if filename == "" or filename == None:
+        return
+
+    cap = cv2.VideoCapture(filename) # 0이면 카메라
+    s_factor = 0.5 # 화면 크기 비율
+
+    frameCount = 0 # 영상 frame 개수
+    while True :
+        ret, frame = cap.read() # 현재 한 장면
+        if not ret:
+            break
+        frameCount += 1
+        if frameCount%8 == 0 : # 화면 속도 조절
+            frame = cv2.resize(frame, None, fx=s_factor, fy=s_factor,
+                               interpolation=cv2.INTER_AREA)
+            # cvPhoto2 = frame
+
+            CONF_VALUE = 0.2
+
+            CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
+                       "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
+                       "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
+                       "sofa", "train", "tvmonitor"]
+            COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
+
+            net = cv2.dnn.readNetFromCaffe(".\\object-detection-deep-learning\\MobileNetSSD_deploy.prototxt.txt",
+                                           ".\\object-detection-deep-learning\\MobileNetSSD_deploy.caffemodel")
+
+            # image = cvPhoto2
+            image = frame
+            (h, w) = image.shape[:2]
+            blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 0.007843, (300, 300), 127.5)
+
+            net.setInput(blob)
+            detections = net.forward()
+
+            for i in np.arange(0, detections.shape[2]):
+                confidence = detections[0, 0, i, 2]
+
+                if confidence > CONF_VALUE:
+                    idx = int(detections[0, 0, i, 1])
+                    box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+                    (startX, startY, endX, endY) = box.astype("int")
+
+
+                    label = "{}: {:.2f}%".format(CLASSES[idx], confidence * 100)
+                    cv2.rectangle(image, (startX, startY), (endX, endY),
+                                  COLORS[idx], 2)
+                    y = startY - 15 if startY - 15 > 15 else startY + 15
+                    cv2.putText(image, label, (startX, y),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)
+
+            # cvPhoto2 = image
+            frame = image
+
+            # cv2.imshow("Deep learning", cvPhoto2)
+            cv2.imshow("Deep learning", frame)
+            c = cv2.waitKey(1)
+            if c == 27 : # ESC
+                break
+            elif c == ord("C") or c == ord("c"):
+                captureVideo()
+                window.update()
+    cap.release()
+    cv2.destroyAllWindows()
+
+def captureVideo() :
+    global window, canvas, paper, filename, inImage, outImage, inH, inW, outH, outW
+    global photo, cvPhoto, frame
+
+    loadImageColor(frame)
+    equalImageColor()
 
 #####################
 ## 전역변수 선언부 ##
@@ -1872,6 +1997,9 @@ if __name__ == '__main__':
     openCVMenu.add_separator()
     openCVMenu.add_command(label="얼굴인식(머신러닝)", command=faceDetectOpenCV)
     openCVMenu.add_command(label="한니발 마스크(머신러닝)", command=hanibalOpenCV)
+    openCVMenu.add_separator()
+    openCVMenu.add_command(label="사물 인식(딥러닝)", command=deepOpenCV)
+    openCVMenu.add_command(label="영지영상에서 사물 인식(딥러닝)", command=deep2OpenCV)
 
 
     btnFrame = tkinter.Frame(window)
